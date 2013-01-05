@@ -39,16 +39,16 @@
 //}
 
 - (void)parseList {
-  // Create new List object.
-  static int count = 0;
-  NSManagedObjectContext *moc = [[ListsDataModel sharedDataModel] mainContext];
-  List *list = [List insertInManagedObjectContext:moc
-                                             name:[NSString stringWithFormat:@"List-%d", ++count]
-                                          details:@""];
   
   // Parse text view text.
   NSString *unparsedText = self.authoringTextView.text;
   NSArray *listItems = [unparsedText componentsSeparatedByString:@"\n"];
+  
+  // Create new List object.
+  NSManagedObjectContext *moc = [[ListsDataModel sharedDataModel] mainContext];
+  List *list = [List insertInManagedObjectContext:moc
+                                             name:[NSString stringWithFormat:@"List-%@", listItems[0]]
+                                          details:@""];
   
   // Create new ListItems.
   ListItem *listItem = nil;
@@ -69,12 +69,12 @@
 
 #pragma mark - IBActions
 
-- (void)dismiss {
-  [self.delegate dismiss];
+- (void)dismiss:(BOOL)newList {
+  [self.delegate dismiss:newList];
 }
 
 - (IBAction)cancel:(id)sender {
-  [self dismiss];
+  [self dismiss:NO];
 }
 
 - (IBAction)saveNewList:(id)sender {
@@ -82,7 +82,7 @@
   //TODO: save new list
   //  [List insertInManagedObjectContext:];
   [self parseList];
-  [self dismiss];
+  [self dismiss:YES];
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PLKClutteredListCell : UICollectionViewCell
+@interface PLKClutteredCell : UICollectionViewCell
 
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 

@@ -11,16 +11,18 @@
 #import "ListsDataModel.h"
 #import "List.h"
 #import "CListViewController.h"
+#import "PLKClutteredCell.h"
 #import "PLKClutteredLayout.h"
-#import "PLKClutteredListCell.h"
 
-@interface CViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CAddListViewControllerDelegate>
+@interface CViewController () <CAddListViewControllerDelegate, PLKClutteredDelegateLayout>
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
 - (void)loadLists;
 @end
 
 @implementation CViewController {
   NSFetchedResultsController *_fetchedResultsController;
+  NSMutableArray *_lists;
+  NSMutableArray *_swipedLists;
 }
 
 - (void)viewDidLoad {
@@ -29,24 +31,25 @@
   self.collectionView.collectionViewLayout = [[PLKClutteredLayout alloc] init];
   
   [self loadLists];
+  _swipedLists = [[NSMutableArray alloc] init];
   
-  [self.collectionView reloadData];
   
-//  NSManagedObjectContext *ctx = [[ListsDataModel sharedDataModel] mainContext];
-//  if (ctx) {
-//    NSLog(@"context is ready.");
-//    
-//    
-//    List *list = [List insertInManagedObjectContext:ctx];
-//    list.name = @"hmmm";
-//    
-//    [ctx save:nil];
-//    
-//  } else {
-//    NSLog(@"nope. :(");
-//  }
-//  
-//  [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"ListCell"];
+  
+  //  NSManagedObjectContext *ctx = [[ListsDataModel sharedDataModel] mainContext];
+  //  if (ctx) {
+  //    NSLog(@"context is ready.");
+  //
+  //
+  //    List *list = [List insertInManagedObjectContext:ctx];
+  //    list.name = @"hmmm";
+  //
+  //    [ctx save:nil];
+  //
+  //  } else {
+  //    NSLog(@"nope. :(");
+  //  }
+  //
+  //  [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"ListCell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,7 +59,7 @@
 
 #pragma mark - Private
 
-- (void)loadLists {  
+- (void)loadLists {
   NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[List entityName]];
   fetchRequest.fetchBatchSize = 40;
   NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
@@ -68,6 +71,7 @@
   NSError *err = nil;
   if ([_fetchedResultsController performFetch:&err]) {
     NSLog(@"fetch success");
+    _lists = [NSMutableArray arrayWithArray:_fetchedResultsController.fetchedObjects];
   } else {
     NSLog(@"fetch failed: %@ %@", [err localizedDescription], [err userInfo]);
   }
@@ -78,27 +82,34 @@
 #pragma mark - UICollectionView Data Source
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-  id<NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
-  NSLog(@"number of items in section %d", [sectionInfo numberOfObjects]);
-  return [sectionInfo numberOfObjects];
+  //  id<NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
+  //  NSLog(@"number of items in section %d", [sectionInfo numberOfObjects]);
+  //  return [sectionInfo numberOfObjects];
+//  NSLog(@"number of item in section 0: %d", [_lists count]);
+  
+  return [_lists count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-  NSLog(@"number of sections: %d", [[_fetchedResultsController sections] count]);
-  return [[_fetchedResultsController sections] count];
+  //  NSLog(@"number of sections: %d", [[_fetchedResultsController sections] count]);
+  //  return [[_fetchedResultsController sections] count];
+  return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-  NSLog(@"cell for item and index path");
-  PLKClutteredListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ListCell" forIndexPath:indexPath];
+//  NSLog(@"cell for item and index path");
   
-  cell.backgroundColor = [UIColor lightGrayColor];
+  PLKClutteredCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ListCell" forIndexPath:indexPath];
   
-  List *list = [_fetchedResultsController objectAtIndexPath:indexPath];
+  //  List *list = [_fetchedResultsController objectAtIndexPath:indexPath];
+  List *list = _lists[indexPath.row];
+  
+//  NSLog(@"cellforitematindexpath: list.name = %@ ", list.name);
+//  NSLog(@"cellforitematindexpath: indexpath.section: %d, .row: %d", indexPath.section, indexPath.row);
   
   cell.titleLabel.text = list.name;
-  NSLog(@"list.name: %@", list.name);
-  NSLog(@"list.details: %@", list.details);
+//  NSLog(@"list.name: %@", list.name);
+//  NSLog(@"list.details: %@", list.details);
   
   return cell;
 }
@@ -109,32 +120,71 @@
   List *list = [_fetchedResultsController objectAtIndexPath:indexPath];
   [self performSegueWithIdentifier:@"ViewList" sender:list];
 }
-//
+
 //- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-//  
+//  NSLog(@"did select item at indexpath: %@", indexPath);
 //}
 
-#pragma mark - UICollectionView Delegate Flow Layout
+#pragma mark - PLKClutteredDelegateLayout
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-  return CGSizeMake(100, 100);
+//- (void)collectionView:(UICollectionView *)collectionView
+//itemAtIndexPathPulledIn:(NSIndexPath *)indexPath
+//{
+//  NSLog(@"pulled in.");
+//}
+- (void)swipeIn
+{
+  
+  if (_swipedLists.count) {
+    List *swipedInList = _swipedLists[0];
+    NSLog(@"swipedInList.name: %@", swipedInList.name);
+    [_swipedLists removeObject:swipedInList];
+    [_lists addObject:swipedInList];
+    
+    NSLog(@"_lists: %@", _lists);
+    
+    [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.collectionView numberOfItemsInSection:0]
+                                                                    inSection:0]]];
+  }
 }
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-  return UIEdgeInsetsMake(50, 40, 50, 40);
+- (void)collectionView:(UICollectionView *)collectionView
+itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
+{
+  
+  NSLog(@"thrown out.");
+  if (_lists.count) {
+    List *swipedOutList = [_lists objectAtIndex:indexPath.row];
+    NSLog(@"swipedOutList.name: %@", swipedOutList.name);
+    
+    [_swipedLists insertObject:swipedOutList atIndex:0];
+    [_lists removeObject:swipedOutList];
+    
+    NSLog(@"_lists: %@", _lists);
+    
+    NSLog(@"indexpath: %@", indexPath);
+    
+    [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+  }
 }
 
 #pragma mark - CAddListViewControllerDelegate
 
-- (void)dismiss {
+- (void)dismiss:(BOOL)newList
+{
   [self dismissViewControllerAnimated:YES completion:^{
-    NSLog(@"done.");
+    if (newList) {
+      [self loadLists];
+      [self.collectionView reloadData];
+    }
   }];
 }
 
 #pragma mark - Segues
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+                 sender:(id)sender
+{
   UINavigationController *navigationViewController = segue.destinationViewController;
   if ([segue.identifier isEqualToString:@"AddNewList"]) {
     UIViewController *destinationViewController = [[navigationViewController viewControllers] objectAtIndex:0];

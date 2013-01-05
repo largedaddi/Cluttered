@@ -1,0 +1,10 @@
+Title: 
+Status: Open
+Assigned To: 
+Created By: <%- currentUser %>
+Created Date: <%- now %>
+Modified By: <%- currentUser %>
+Modified Date: <%- now %>
+Description:
+
+Comments:

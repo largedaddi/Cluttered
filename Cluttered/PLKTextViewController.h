@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface PLKTextViewController : UIViewController <UITextViewDelegate>
-  @property (nonatomic, weak) IBOutlet UITextView *authoringTextView;
+@property (nonatomic, weak) IBOutlet UITextView *authoringTextView;
 @end

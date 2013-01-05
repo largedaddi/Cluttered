@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CViewController : UICollectionViewController
+@interface CViewController : UICollectionViewController 
 
 @end

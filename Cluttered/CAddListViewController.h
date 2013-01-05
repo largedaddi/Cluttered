@@ -10,7 +10,7 @@
 #import "PLKTextViewController.h"
 
 @protocol CAddListViewControllerDelegate <NSObject>
-- (void)dismiss;
+- (void)dismiss:(BOOL)newList;
 @end
 
 @interface CAddListViewController : PLKTextViewController

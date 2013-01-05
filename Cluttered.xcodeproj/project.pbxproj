@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		663737971664596100A1EB13 /* PLKClutteredListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 663737961664596000A1EB13 /* PLKClutteredListCell.m */; };
+		663737971664596100A1EB13 /* PLKClutteredCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 663737961664596000A1EB13 /* PLKClutteredCell.m */; };
 		664550CB162CB38A00193AE7 /* _List.m in Sources */ = {isa = PBXBuildFile; fileRef = 664550C4162CB38A00193AE7 /* _List.m */; };
 		664550CC162CB38A00193AE7 /* _ListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 664550C6162CB38A00193AE7 /* _ListItem.m */; };
 		664550CD162CB38A00193AE7 /* List.m in Sources */ = {isa = PBXBuildFile; fileRef = 664550C8162CB38A00193AE7 /* List.m */; };
@@ -50,8 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		663737951664596000A1EB13 /* PLKClutteredListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLKClutteredListCell.h; sourceTree = "<group>"; };
-		663737961664596000A1EB13 /* PLKClutteredListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLKClutteredListCell.m; sourceTree = "<group>"; };
+		663737951664596000A1EB13 /* PLKClutteredCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLKClutteredCell.h; sourceTree = "<group>"; };
+		663737961664596000A1EB13 /* PLKClutteredCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLKClutteredCell.m; sourceTree = "<group>"; };
 		664550C3162CB38A00193AE7 /* _List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _List.h; sourceTree = "<group>"; };
 		664550C4162CB38A00193AE7 /* _List.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _List.m; sourceTree = "<group>"; };
 		664550C5162CB38A00193AE7 /* _ListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ListItem.h; sourceTree = "<group>"; };
@@ -124,6 +124,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		66B778C3168E0F1C00BD8F34 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				66B893671619475C005261D2 /* CViewController.h */,
+				66B893681619475C005261D2 /* CViewController.m */,
+				66B778CA168E117700BD8F34 /* Cluttered Collection View */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		66B778C5168E0FA300BD8F34 /* Authoring */ = {
+			isa = PBXGroup;
+			children = (
+				66CFF115161D2782005CEA25 /* CAddListViewController.h */,
+				66CFF116161D2782005CEA25 /* CAddListViewController.m */,
+				669CE88D162388F600C229D8 /* PLKTextViewController.h */,
+				669CE88E162388F600C229D8 /* PLKTextViewController.m */,
+			);
+			name = Authoring;
+			sourceTree = "<group>";
+		};
+		66B778C6168E0FEF00BD8F34 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				66FF0678164E1C7E00FC03FF /* CListViewController.h */,
+				66FF0679164E1C7E00FC03FF /* CListViewController.m */,
+			);
+			name = List;
+			sourceTree = "<group>";
+		};
+		66B778CA168E117700BD8F34 /* Cluttered Collection View */ = {
+			isa = PBXGroup;
+			children = (
+				66D562C11659ADA400679AE3 /* PLKClutteredLayout.h */,
+				66D562C21659ADA400679AE3 /* PLKClutteredLayout.m */,
+				663737951664596000A1EB13 /* PLKClutteredCell.h */,
+				663737961664596000A1EB13 /* PLKClutteredCell.m */,
+			);
+			name = "Cluttered Collection View";
+			sourceTree = "<group>";
+		};
 		66B8933D1619475C005261D2 = {
 			isa = PBXGroup;
 			children = (
@@ -159,22 +200,13 @@
 		66B893521619475C005261D2 /* Cluttered */ = {
 			isa = PBXGroup;
 			children = (
-				66F0D7CF162B93A0003119F7 /* DataModel */,
 				66B8935B1619475C005261D2 /* CAppDelegate.h */,
 				66B8935C1619475C005261D2 /* CAppDelegate.m */,
 				66B893641619475C005261D2 /* MainStoryboard.storyboard */,
-				66B893671619475C005261D2 /* CViewController.h */,
-				66B893681619475C005261D2 /* CViewController.m */,
-				66D562C11659ADA400679AE3 /* PLKClutteredLayout.h */,
-				66D562C21659ADA400679AE3 /* PLKClutteredLayout.m */,
-				663737951664596000A1EB13 /* PLKClutteredListCell.h */,
-				663737961664596000A1EB13 /* PLKClutteredListCell.m */,
-				66CFF115161D2782005CEA25 /* CAddListViewController.h */,
-				66CFF116161D2782005CEA25 /* CAddListViewController.m */,
-				669CE88D162388F600C229D8 /* PLKTextViewController.h */,
-				669CE88E162388F600C229D8 /* PLKTextViewController.m */,
-				66FF0678164E1C7E00FC03FF /* CListViewController.h */,
-				66FF0679164E1C7E00FC03FF /* CListViewController.m */,
+				66F0D7CF162B93A0003119F7 /* DataModel */,
+				66B778C3168E0F1C00BD8F34 /* Main */,
+				66B778C5168E0FA300BD8F34 /* Authoring */,
+				66B778C6168E0FEF00BD8F34 /* List */,
 				66B893531619475C005261D2 /* Supporting Files */,
 			);
 			path = Cluttered;
@@ -355,7 +387,7 @@
 				664550D2162CB3C800193AE7 /* ListsDataModel.m in Sources */,
 				66FF067A164E1C7E00FC03FF /* CListViewController.m in Sources */,
 				66D562C31659ADA400679AE3 /* PLKClutteredLayout.m in Sources */,
-				663737971664596100A1EB13 /* PLKClutteredListCell.m in Sources */,
+				663737971664596100A1EB13 /* PLKClutteredCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
