@@ -9,9 +9,10 @@
 #import "CListViewController.h"
 #import "List.h"
 #import "ListItem.h"
+#import "CListItemCell.h"
 
 @interface CListViewController ()
-
+- (void)pan:(UIPanGestureRecognizer *)pgr;
 @end
 
 @implementation CListViewController {
@@ -37,25 +38,32 @@
   
   listItems = [self.list.listItems allObjects];
   
+  UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+  panGestureRecognizer.maximumNumberOfTouches = 1;
+  [self.tableView addGestureRecognizer:panGestureRecognizer];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   [super didReceiveMemoryWarning];
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
   return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
   return listItems.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   static NSString *CellIdentifier = @"ListItemCell";
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+  CListItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
   
   ListItem *listItem = [listItems objectAtIndex:indexPath.row];
   cell.textLabel.text = listItem.details;
@@ -105,7 +113,8 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
   // Navigation logic may go here. Create and push another view controller.
   /*
    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -115,4 +124,34 @@
    */
 }
 
+#pragma mark - Private
+
+- (void)pan:(UIPanGestureRecognizer *)pgr
+{
+  CGPoint point = [pgr locationInView:self.tableView];
+  static CListItemCell *cell;
+  static BOOL valid = NO;
+  if (pgr.state == UIGestureRecognizerStateBegan) {
+    cell = (CListItemCell *)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForRowAtPoint:point]];
+    valid = [cell startSlashAtPoint:point];
+  }
+  
+  if (cell && valid) {
+    if (pgr.state == UIGestureRecognizerStateChanged) {
+      CGPoint translation = [pgr translationInView:self.tableView];
+      [cell drawSlashWithTranslation:translation];
+      [pgr setTranslation:CGPointZero
+                   inView:self.tableView];
+    }
+    else if (pgr.state == UIGestureRecognizerStateEnded) {
+      CGPoint velocity = [pgr velocityInView:self.tableView];
+      CGFloat magnitude = sqrtf((velocity.x * velocity.x) + (velocity.y * velocity.y));
+      [cell endSlashAtPoint:point
+              withMagnitude:magnitude];
+    }
+  }
+}
+
 @end
+
+
