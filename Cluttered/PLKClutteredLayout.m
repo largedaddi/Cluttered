@@ -172,6 +172,8 @@ typedef enum {
     CGPoint t = [pgr translationInView:self.collectionView];
     //  cell.center = CGPointMake(cell.center.x + t.x, cell.center.y);
     cell.center = CGPointMake(cell.center.x + t.x, cell.center.y + t.y);
+    NSLog(@"t: %@", NSStringFromCGPoint(t));
+    NSLog(@"center: %@", NSStringFromCGPoint(cell.center));
     [pgr setTranslation:CGPointZero
                  inView:self.collectionView];
     

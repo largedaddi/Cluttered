@@ -34,6 +34,7 @@
 		66B8937E1619475C005261D2 /* ClutteredTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B8937D1619475C005261D2 /* ClutteredTests.m */; };
 		66CFF117161D2782005CEA25 /* CAddListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CFF116161D2782005CEA25 /* CAddListViewController.m */; };
 		66D562C31659ADA400679AE3 /* PLKClutteredLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D562C21659ADA400679AE3 /* PLKClutteredLayout.m */; };
+		66EB873E169C766700405F99 /* PLKTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EB873D169C766700405F99 /* PLKTableViewCell.m */; };
 		66F0D7CD162B936D003119F7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66F0D7CC162B936D003119F7 /* CoreData.framework */; };
 		66F0D7D2162B94F6003119F7 /* Lists.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 66F0D7D0162B94F6003119F7 /* Lists.xcdatamodeld */; };
 		66F0D7D3162B94F6003119F7 /* Lists.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 66F0D7D0162B94F6003119F7 /* Lists.xcdatamodeld */; };
@@ -94,6 +95,8 @@
 		66CFF116161D2782005CEA25 /* CAddListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAddListViewController.m; sourceTree = "<group>"; };
 		66D562C11659ADA400679AE3 /* PLKClutteredLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLKClutteredLayout.h; sourceTree = "<group>"; };
 		66D562C21659ADA400679AE3 /* PLKClutteredLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLKClutteredLayout.m; sourceTree = "<group>"; };
+		66EB873C169C766700405F99 /* PLKTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLKTableViewCell.h; sourceTree = "<group>"; };
+		66EB873D169C766700405F99 /* PLKTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLKTableViewCell.m; sourceTree = "<group>"; };
 		66F00C451640C098000974F2 /* Lists 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Lists 2.xcdatamodel"; sourceTree = "<group>"; };
 		66F0D7CC162B936D003119F7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		66F0D7D1162B94F6003119F7 /* Lists.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lists.xcdatamodel; sourceTree = "<group>"; };
@@ -155,6 +158,8 @@
 				66FF0679164E1C7E00FC03FF /* CListViewController.m */,
 				66A7941F169A2E9C0067E1B6 /* CListItemCell.h */,
 				66A79420169A2E9C0067E1B6 /* CListItemCell.m */,
+				66EB873C169C766700405F99 /* PLKTableViewCell.h */,
+				66EB873D169C766700405F99 /* PLKTableViewCell.m */,
 			);
 			name = List;
 			sourceTree = "<group>";
@@ -394,6 +399,7 @@
 				66D562C31659ADA400679AE3 /* PLKClutteredLayout.m in Sources */,
 				663737971664596100A1EB13 /* PLKClutteredCell.m in Sources */,
 				66A79421169A2E9C0067E1B6 /* CListItemCell.m in Sources */,
+				66EB873E169C766700405F99 /* PLKTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

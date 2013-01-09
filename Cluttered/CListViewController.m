@@ -41,6 +41,8 @@
   UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
   panGestureRecognizer.maximumNumberOfTouches = 1;
   [self.tableView addGestureRecognizer:panGestureRecognizer];
+  
+  [self.tableView registerClass:[CListItemCell class] forCellReuseIdentifier:@"ListItemCell"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,9 +67,11 @@
   static NSString *CellIdentifier = @"ListItemCell";
   CListItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
   
-  ListItem *listItem = [listItems objectAtIndex:indexPath.row];
-  cell.textLabel.text = listItem.details;
-  cell.detailTextLabel.text = [listItem.complete stringValue];
+//  ListItem *listItem = [listItems objectAtIndex:indexPath.row];
+//  cell.textLabel.text = listItem.details;
+//  cell.detailTextLabel.text = [listItem.complete stringValue];
+  
+  cell.selectionStyle = UITableViewCellSelectionStyleNone;
   
   return cell;
 }
@@ -131,19 +135,29 @@
   CGPoint point = [pgr locationInView:self.tableView];
   static CListItemCell *cell;
   static BOOL valid = NO;
+  static CGPoint start;
   if (pgr.state == UIGestureRecognizerStateBegan) {
     cell = (CListItemCell *)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForRowAtPoint:point]];
     valid = [cell startSlashAtPoint:point];
+    
+    start = point;
   }
   
   if (cell && valid) {
-    if (pgr.state == UIGestureRecognizerStateChanged) {
-      CGPoint translation = [pgr translationInView:self.tableView];
-      [cell drawSlashWithTranslation:translation];
-      [pgr setTranslation:CGPointZero
-                   inView:self.tableView];
-    }
-    else if (pgr.state == UIGestureRecognizerStateEnded) {
+    
+    CGPoint translation = [pgr translationInView:self.tableView];
+    [cell drawSlashWithTranslation:translation];
+    
+    NSLog(@"translation.x: %f", translation.x);
+    
+    [pgr setTranslation:CGPointZero
+                 inView:self.tableView];
+    
+//    if (pgr.state == UIGestureRecognizerStateChanged) {
+//      
+//    }
+//    else
+    if (pgr.state == UIGestureRecognizerStateEnded) {
       CGPoint velocity = [pgr velocityInView:self.tableView];
       CGFloat magnitude = sqrtf((velocity.x * velocity.x) + (velocity.y * velocity.y));
       [cell endSlashAtPoint:point

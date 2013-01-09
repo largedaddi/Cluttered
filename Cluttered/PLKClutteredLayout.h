@@ -10,11 +10,10 @@
 
 @interface PLKClutteredLayout : UICollectionViewLayout
 - (id)init;
-- (void)awakeFromNib;
 @end
 
 @protocol PLKClutteredDelegateLayout <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPathThrownOut:(NSIndexPath *)indexPath;
-- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPathPulledIn:(NSIndexPath *)indexPath;
+//- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPathPulledIn:(NSIndexPath *)indexPath;
 - (void)swipeIn;
 @end

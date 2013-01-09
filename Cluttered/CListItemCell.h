@@ -11,7 +11,7 @@
 @interface CListItemCell : UITableViewCell
 
 - (BOOL)startSlashAtPoint:(CGPoint)p;
-- (void)drawSlashWithTranslation:(CGPoint)p;
+- (void)drawSlashWithTranslation:(CGPoint)t;
 - (void)endSlashAtPoint:(CGPoint)p
           withMagnitude:(CGFloat)m;
 
