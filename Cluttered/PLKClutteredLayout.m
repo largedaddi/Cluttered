@@ -140,40 +140,20 @@ typedef enum {
 {
   CGPoint initialPoint;
   static UICollectionViewCell *cell = nil;
-  static NSDate *start = nil;
   static ClutteredSwipeDirection swipeDirection;
   if (pgr.state == UIGestureRecognizerStateBegan) {
-    NSLog(@"began..");
+    
     initialPoint = [pgr locationInView:self.collectionView];
-    NSLog(@"init point: %@", NSStringFromCGPoint(initialPoint));
-    
-    //    NSIndexPath *ip = [self.collectionView indexPathForItemAtPoint:initialPoint];
     _selectedIndexPath = [self.collectionView indexPathForItemAtPoint:initialPoint];
-    
-//    NSLog(@"_selectedIndexPath.section: %d, .row: %d", _selectedIndexPath.section, _selectedIndexPath.row);
-    
     cell = [self.collectionView cellForItemAtIndexPath:_selectedIndexPath];
-    
-//    NSLog(@"cell: %@", cell);
-    
-    start = [NSDate date];
-    
     swipeDirection = (!CGRectContainsPoint(_threshold, initialPoint)) ? ClutteredSwipeIn : ClutteredSwipeOut;
-    NSLog(@"cluttered swipe direction: %d", swipeDirection);
-    NSLog(@"does threshold contain init point: %d", CGRectContainsPoint(_threshold, initialPoint));
-    NSLog(@"threshold: %@", NSStringFromCGRect(_threshold));
-//    UIView *view = [[UIView alloc] initWithFrame:_threshold];
-//    view.backgroundColor = [UIColor blackColor];
-//    [self.collectionView addSubview:view];
+    
   }
   
   if (_selectedIndexPath.row == [self.collectionView numberOfItemsInSection:0] - 1) {
     
     CGPoint t = [pgr translationInView:self.collectionView];
-    //  cell.center = CGPointMake(cell.center.x + t.x, cell.center.y);
     cell.center = CGPointMake(cell.center.x + t.x, cell.center.y + t.y);
-    NSLog(@"t: %@", NSStringFromCGPoint(t));
-    NSLog(@"center: %@", NSStringFromCGPoint(cell.center));
     [pgr setTranslation:CGPointZero
                  inView:self.collectionView];
     

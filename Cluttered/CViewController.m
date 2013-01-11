@@ -50,6 +50,10 @@
   //  }
   //
   //  [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"ListCell"];
+  
+//  self.view.translatesAutoresizingMaskIntoConstraints = NO;
+//  self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+  
 }
 
 - (void)didReceiveMemoryWarning {
@@ -101,7 +105,6 @@
   
   PLKClutteredCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ListCell" forIndexPath:indexPath];
   
-  //  List *list = [_fetchedResultsController objectAtIndexPath:indexPath];
   List *list = _lists[indexPath.row];
   
 //  NSLog(@"cellforitematindexpath: list.name = %@ ", list.name);
@@ -132,6 +135,7 @@
 //{
 //  NSLog(@"pulled in.");
 //}
+
 - (void)swipeIn
 {
   
@@ -152,19 +156,19 @@
 itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
 {
   
-  NSLog(@"thrown out.");
+//  NSLog(@"thrown out.");
   if (_lists.count) {
     List *swipedOutList = [_lists objectAtIndex:indexPath.row];
-    NSLog(@"swipedOutList.name: %@", swipedOutList.name);
+//    NSLog(@"swipedOutList.name: %@", swipedOutList.name);
     
     [_swipedLists insertObject:swipedOutList atIndex:0];
     [_lists removeObject:swipedOutList];
     
-    NSLog(@"_lists: %@", _lists);
-    
-    NSLog(@"indexpath: %@", indexPath);
+//    NSLog(@"_lists: %@", _lists);
+//    NSLog(@"indexpath: %@", indexPath);
     
     [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+    
   }
 }
 

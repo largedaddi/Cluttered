@@ -38,9 +38,17 @@
 - (void)commonInit
 {
 //  self.contentView.layer.cornerRadius = 5.0;
-  self.contentView.layer.borderWidth = 1.0f;
-  self.contentView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-  self.contentView.backgroundColor = [UIColor grayColor];
+  self.layer.masksToBounds = NO;
+  self.layer.shadowOffset = CGSizeMake(0, 0);
+  self.layer.shadowRadius = 5.0;
+  self.layer.shadowColor = [UIColor blackColor].CGColor;
+  self.layer.shadowOpacity = 0.5;
+  
+  self.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
+  
+//  self.contentView.layer.borderWidth = 1.0f;
+//  self.contentView.layer.borderColor = [UIColor blackColor].CGColor;
+  self.contentView.backgroundColor = [UIColor whiteColor];
 }
 
 @end

@@ -10,6 +10,8 @@
 
 @interface CListItemCell : UITableViewCell
 
+@property (nonatomic, weak) IBOutlet UILabel *detailsLabel;
+
 - (BOOL)startSlashAtPoint:(CGPoint)p;
 - (void)drawSlashWithTranslation:(CGPoint)t;
 - (void)endSlashAtPoint:(CGPoint)p

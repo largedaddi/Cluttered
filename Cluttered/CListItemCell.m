@@ -11,9 +11,6 @@
 
 #define SLASH_PADDING 20.0
 
-static CGPoint midpoint(CGPoint start, CGPoint end);
-static void makeItSo(UIBezierPath *path);
-
 @implementation CListItemCell {
   CAShapeLayer *_slash;
   CGPoint _slashStartingPoint;
@@ -31,11 +28,38 @@ static void makeItSo(UIBezierPath *path);
   return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+  self = [super initWithCoder:aDecoder];
+  if (self) {
+    NSLog(@"initWithCoder");
+    [self commonInit];
+  }
+  return self;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+  self = [super initWithFrame:frame];
+  if (self) {
+    NSLog(@"initWithFrame");
+    [self commonInit];
+  }
+  return self;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
   [super setSelected:selected animated:animated];
   
   // Configure the view for the selected state
+}
+
+- (void)drawRect:(CGRect)rect
+{
+  [super drawRect:rect];
+  
+  
 }
 
 #pragma mark - Public
@@ -91,7 +115,7 @@ static void makeItSo(UIBezierPath *path);
 - (void)endSlashAtPoint:(CGPoint)p withMagnitude:(CGFloat)m
 {
   CABasicAnimation *slashimation = [CABasicAnimation animationWithKeyPath:@"path"];
-  slashimation.duration = 2.0;
+  slashimation.duration = 0.25;
   slashimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
   slashimation.fromValue = (id)_slash.path;
   UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:_slash.path];
@@ -136,11 +160,3 @@ static void makeItSo(UIBezierPath *path);
 
 @end
 
-CGPoint midpoint(CGPoint start, CGPoint end) {
-  return CGPointMake((start.x + end.x) / 2.0, (start.y + end.y) / 2.0);
-}
-
-void makeItSo(UIBezierPath *path) {
-  [[UIColor redColor] setStroke];
-  [path stroke];
-}

@@ -16,7 +16,7 @@
 @end
 
 @implementation CListViewController {
-  NSArray *listItems;
+  NSArray *_listItems;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -36,13 +36,15 @@
   // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
   // self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
-  listItems = [self.list.listItems allObjects];
+  _listItems = [self.list.listItems allObjects];
   
   UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
   panGestureRecognizer.maximumNumberOfTouches = 1;
   [self.tableView addGestureRecognizer:panGestureRecognizer];
   
-  [self.tableView registerClass:[CListItemCell class] forCellReuseIdentifier:@"ListItemCell"];
+//  [self.tableView registerClass:[CListItemCell class] forCellReuseIdentifier:@"ListItemCell"];
+  [self.tableView registerNib:[UINib nibWithNibName:@"CListItemCell" bundle:nil]
+       forCellReuseIdentifier:@"ListItemCell"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,7 +61,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return listItems.count;
+  return _listItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -67,11 +69,15 @@
   static NSString *CellIdentifier = @"ListItemCell";
   CListItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
   
-//  ListItem *listItem = [listItems objectAtIndex:indexPath.row];
-//  cell.textLabel.text = listItem.details;
-//  cell.detailTextLabel.text = [listItem.complete stringValue];
+  ListItem *listItem = [_listItems objectAtIndex:indexPath.row];
+  NSLog(@"cell.detailsLabel.text: %@", cell.detailsLabel);
+  NSLog(@"listItem.details: %@", listItem.details);
+  cell.detailsLabel.text = listItem.details;
   
-  cell.selectionStyle = UITableViewCellSelectionStyleNone;
+  
+  //  cell.textLabel.text = listItem.details;
+  //  cell.detailTextLabel.text = [listItem.complete stringValue];
+  
   
   return cell;
 }
@@ -153,10 +159,10 @@
     [pgr setTranslation:CGPointZero
                  inView:self.tableView];
     
-//    if (pgr.state == UIGestureRecognizerStateChanged) {
-//      
-//    }
-//    else
+    //    if (pgr.state == UIGestureRecognizerStateChanged) {
+    //
+    //    }
+    //    else
     if (pgr.state == UIGestureRecognizerStateEnded) {
       CGPoint velocity = [pgr velocityInView:self.tableView];
       CGFloat magnitude = sqrtf((velocity.x * velocity.x) + (velocity.y * velocity.y));

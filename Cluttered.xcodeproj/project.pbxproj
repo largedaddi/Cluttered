@@ -32,6 +32,7 @@
 		66B893731619475C005261D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B8934E1619475C005261D2 /* Foundation.framework */; };
 		66B8937B1619475C005261D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 66B893791619475C005261D2 /* InfoPlist.strings */; };
 		66B8937E1619475C005261D2 /* ClutteredTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B8937D1619475C005261D2 /* ClutteredTests.m */; };
+		66C16340169FB05D00BCF72B /* CListItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66C1633F169FB05D00BCF72B /* CListItemCell.xib */; };
 		66CFF117161D2782005CEA25 /* CAddListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CFF116161D2782005CEA25 /* CAddListViewController.m */; };
 		66D562C31659ADA400679AE3 /* PLKClutteredLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D562C21659ADA400679AE3 /* PLKClutteredLayout.m */; };
 		66EB873E169C766700405F99 /* PLKTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EB873D169C766700405F99 /* PLKTableViewCell.m */; };
@@ -91,6 +92,7 @@
 		66B8937A1619475C005261D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		66B8937C1619475C005261D2 /* ClutteredTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClutteredTests.h; sourceTree = "<group>"; };
 		66B8937D1619475C005261D2 /* ClutteredTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClutteredTests.m; sourceTree = "<group>"; };
+		66C1633F169FB05D00BCF72B /* CListItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CListItemCell.xib; sourceTree = "<group>"; };
 		66CFF115161D2782005CEA25 /* CAddListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAddListViewController.h; sourceTree = "<group>"; };
 		66CFF116161D2782005CEA25 /* CAddListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAddListViewController.m; sourceTree = "<group>"; };
 		66D562C11659ADA400679AE3 /* PLKClutteredLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLKClutteredLayout.h; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				66A79420169A2E9C0067E1B6 /* CListItemCell.m */,
 				66EB873C169C766700405F99 /* PLKTableViewCell.h */,
 				66EB873D169C766700405F99 /* PLKTableViewCell.m */,
+				66C1633F169FB05D00BCF72B /* CListItemCell.xib */,
 			);
 			name = List;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				66B893611619475C005261D2 /* Default@2x.png in Resources */,
 				66B893631619475C005261D2 /* Default-568h@2x.png in Resources */,
 				66B893661619475C005261D2 /* MainStoryboard.storyboard in Resources */,
+				66C16340169FB05D00BCF72B /* CListItemCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
