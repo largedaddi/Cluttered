@@ -14,7 +14,7 @@
                         <color key="backgroundColor" red="0.99215686274509807" green="0.99215686274509807" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewLayout key="collectionViewLayout" id="aVH-bp-JCn" customClass="PLKClutteredLayout"/>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ListCell" id="4R6-OH-xHR" customClass="PLKClutteredCell">
+                            <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ListCell" id="4R6-OH-xHR" customClass="PLKClutteredCell">
                                 <rect key="frame" x="69" y="0.0" width="181" height="250"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -198,6 +198,7 @@ list item 3</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CAddListViewController.h"/>
             <relationships>
                 <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="saveNewList:"/>
             </relationships>
         </class>
         <class className="CListViewController" superclassName="UITableViewController">
