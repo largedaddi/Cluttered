@@ -34,6 +34,25 @@
   _swipedLists = [[NSMutableArray alloc] init];
   
   
+  UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  [addButton addTarget:self
+                action:@selector(authorList)
+      forControlEvents:UIControlEventTouchUpInside];
+  [addButton setTitle:@"+"
+             forState:UIControlStateNormal];
+  [addButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+  addButton.frame = CGRectMake(self.collectionView.bounds.size.width - 30.0, -20.0, 20.0, 20.0);
+  [self.collectionView addSubview:addButton];
+  
+  addButton.alpha = 0.0;
+  [UIView animateWithDuration:0.25
+                        delay:0.25
+                      options:UIViewAnimationOptionCurveEaseOut
+                   animations:^{
+                     addButton.alpha = 1.0;
+                     addButton.center = CGPointMake(addButton.center.x,
+                                                    addButton.center.y + 30.0);
+                   } completion:nil];
   
   //  NSManagedObjectContext *ctx = [[ListsDataModel sharedDataModel] mainContext];
   //  if (ctx) {
@@ -51,8 +70,8 @@
   //
   //  [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"ListCell"];
   
-//  self.view.translatesAutoresizingMaskIntoConstraints = NO;
-//  self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+  //  self.view.translatesAutoresizingMaskIntoConstraints = NO;
+  //  self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
   
 }
 
@@ -81,7 +100,25 @@
   }
 }
 
+- (void)authorList
+{
+  [self performSegueWithIdentifier:@"AddNewList"
+                            sender:nil];
+}
+
 #pragma mark - Public
+
+- (IBAction)cancelAuthoringUnwindSegue:(id)sender
+{
+  NSLog(@"cancel authoring unwind");
+  
+}
+
+- (IBAction)returnHomeUnwindSegue:(UIStoryboardSegue *)segue
+{
+  NSLog(@"return home.");
+}
+
 
 #pragma mark - UICollectionView Data Source
 
@@ -89,7 +126,7 @@
   //  id<NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
   //  NSLog(@"number of items in section %d", [sectionInfo numberOfObjects]);
   //  return [sectionInfo numberOfObjects];
-//  NSLog(@"number of item in section 0: %d", [_lists count]);
+  //  NSLog(@"number of item in section 0: %d", [_lists count]);
   
   return [_lists count];
 }
@@ -101,18 +138,18 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-//  NSLog(@"cell for item and index path");
+  //  NSLog(@"cell for item and index path");
   
   PLKClutteredCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ListCell" forIndexPath:indexPath];
   
   List *list = _lists[indexPath.row];
   
-//  NSLog(@"cellforitematindexpath: list.name = %@ ", list.name);
-//  NSLog(@"cellforitematindexpath: indexpath.section: %d, .row: %d", indexPath.section, indexPath.row);
+  //  NSLog(@"cellforitematindexpath: list.name = %@ ", list.name);
+  //  NSLog(@"cellforitematindexpath: indexpath.section: %d, .row: %d", indexPath.section, indexPath.row);
   
   cell.titleLabel.text = list.name;
-//  NSLog(@"list.name: %@", list.name);
-//  NSLog(@"list.details: %@", list.details);
+  //  NSLog(@"list.name: %@", list.name);
+  //  NSLog(@"list.details: %@", list.details);
   
   return cell;
 }
@@ -148,7 +185,7 @@
     NSLog(@"_lists: %@", _lists);
     
     [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.collectionView numberOfItemsInSection:0]
-                                                                    inSection:0]]];
+                                                                      inSection:0]]];
   }
 }
 
@@ -156,16 +193,16 @@
 itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
 {
   
-//  NSLog(@"thrown out.");
+  //  NSLog(@"thrown out.");
   if (_lists.count) {
     List *swipedOutList = [_lists objectAtIndex:indexPath.row];
-//    NSLog(@"swipedOutList.name: %@", swipedOutList.name);
+    //    NSLog(@"swipedOutList.name: %@", swipedOutList.name);
     
     [_swipedLists insertObject:swipedOutList atIndex:0];
     [_lists removeObject:swipedOutList];
     
-//    NSLog(@"_lists: %@", _lists);
-//    NSLog(@"indexpath: %@", indexPath);
+    //    NSLog(@"_lists: %@", _lists);
+    //    NSLog(@"indexpath: %@", indexPath);
     
     [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
     
@@ -189,10 +226,9 @@ itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
 - (void)prepareForSegue:(UIStoryboardSegue *)segue
                  sender:(id)sender
 {
-  UINavigationController *navigationViewController = segue.destinationViewController;
   if ([segue.identifier isEqualToString:@"AddNewList"]) {
-    UIViewController *destinationViewController = [[navigationViewController viewControllers] objectAtIndex:0];
-    [(CAddListViewController *)destinationViewController setDelegate:self];
+    CAddListViewController *destinationViewController = segue.destinationViewController;
+    [destinationViewController setDelegate:self];
   } else if ([segue.identifier isEqualToString:@"ViewList"]) {
     CListViewController *destinationViewController = segue.destinationViewController;
     destinationViewController.list = sender;

@@ -33,6 +33,10 @@
 		66B8937B1619475C005261D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 66B893791619475C005261D2 /* InfoPlist.strings */; };
 		66B8937E1619475C005261D2 /* ClutteredTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B8937D1619475C005261D2 /* ClutteredTests.m */; };
 		66C16340169FB05D00BCF72B /* CListItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66C1633F169FB05D00BCF72B /* CListItemCell.xib */; };
+		66C32E2616A39CF6004ED9AE /* CListViewSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C32E2516A39CF6004ED9AE /* CListViewSegue.m */; };
+		66C32E2A16A39D1B004ED9AE /* CAuthorListSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C32E2916A39D1B004ED9AE /* CAuthorListSegue.m */; };
+		66C32E2D16A3A09C004ED9AE /* CAuthoringUnwindSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C32E2C16A3A09C004ED9AE /* CAuthoringUnwindSegue.m */; };
+		66C32E3016A3A0B0004ED9AE /* CListViewUnwindSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C32E2F16A3A0B0004ED9AE /* CListViewUnwindSegue.m */; };
 		66CFF117161D2782005CEA25 /* CAddListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CFF116161D2782005CEA25 /* CAddListViewController.m */; };
 		66D562C31659ADA400679AE3 /* PLKClutteredLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D562C21659ADA400679AE3 /* PLKClutteredLayout.m */; };
 		66EB873E169C766700405F99 /* PLKTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EB873D169C766700405F99 /* PLKTableViewCell.m */; };
@@ -93,6 +97,14 @@
 		66B8937C1619475C005261D2 /* ClutteredTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClutteredTests.h; sourceTree = "<group>"; };
 		66B8937D1619475C005261D2 /* ClutteredTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClutteredTests.m; sourceTree = "<group>"; };
 		66C1633F169FB05D00BCF72B /* CListItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CListItemCell.xib; sourceTree = "<group>"; };
+		66C32E2416A39CF6004ED9AE /* CListViewSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CListViewSegue.h; sourceTree = "<group>"; };
+		66C32E2516A39CF6004ED9AE /* CListViewSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CListViewSegue.m; sourceTree = "<group>"; };
+		66C32E2816A39D1B004ED9AE /* CAuthorListSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAuthorListSegue.h; sourceTree = "<group>"; };
+		66C32E2916A39D1B004ED9AE /* CAuthorListSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAuthorListSegue.m; sourceTree = "<group>"; };
+		66C32E2B16A3A09C004ED9AE /* CAuthoringUnwindSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAuthoringUnwindSegue.h; sourceTree = "<group>"; };
+		66C32E2C16A3A09C004ED9AE /* CAuthoringUnwindSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAuthoringUnwindSegue.m; sourceTree = "<group>"; };
+		66C32E2E16A3A0B0004ED9AE /* CListViewUnwindSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CListViewUnwindSegue.h; sourceTree = "<group>"; };
+		66C32E2F16A3A0B0004ED9AE /* CListViewUnwindSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CListViewUnwindSegue.m; sourceTree = "<group>"; };
 		66CFF115161D2782005CEA25 /* CAddListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAddListViewController.h; sourceTree = "<group>"; };
 		66CFF116161D2782005CEA25 /* CAddListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAddListViewController.m; sourceTree = "<group>"; };
 		66D562C11659ADA400679AE3 /* PLKClutteredLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLKClutteredLayout.h; sourceTree = "<group>"; };
@@ -138,6 +150,10 @@
 				66B893671619475C005261D2 /* CViewController.h */,
 				66B893681619475C005261D2 /* CViewController.m */,
 				66B778CA168E117700BD8F34 /* Cluttered Collection View */,
+				66C32E2B16A3A09C004ED9AE /* CAuthoringUnwindSegue.h */,
+				66C32E2C16A3A09C004ED9AE /* CAuthoringUnwindSegue.m */,
+				66C32E2E16A3A0B0004ED9AE /* CListViewUnwindSegue.h */,
+				66C32E2F16A3A0B0004ED9AE /* CListViewUnwindSegue.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -145,6 +161,8 @@
 		66B778C5168E0FA300BD8F34 /* Authoring */ = {
 			isa = PBXGroup;
 			children = (
+				66C32E2816A39D1B004ED9AE /* CAuthorListSegue.h */,
+				66C32E2916A39D1B004ED9AE /* CAuthorListSegue.m */,
 				66CFF115161D2782005CEA25 /* CAddListViewController.h */,
 				66CFF116161D2782005CEA25 /* CAddListViewController.m */,
 				669CE88D162388F600C229D8 /* PLKTextViewController.h */,
@@ -156,6 +174,8 @@
 		66B778C6168E0FEF00BD8F34 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				66C32E2416A39CF6004ED9AE /* CListViewSegue.h */,
+				66C32E2516A39CF6004ED9AE /* CListViewSegue.m */,
 				66FF0678164E1C7E00FC03FF /* CListViewController.h */,
 				66FF0679164E1C7E00FC03FF /* CListViewController.m */,
 				66A7941F169A2E9C0067E1B6 /* CListItemCell.h */,
@@ -404,6 +424,10 @@
 				663737971664596100A1EB13 /* PLKClutteredCell.m in Sources */,
 				66A79421169A2E9C0067E1B6 /* CListItemCell.m in Sources */,
 				66EB873E169C766700405F99 /* PLKTableViewCell.m in Sources */,
+				66C32E2616A39CF6004ED9AE /* CListViewSegue.m in Sources */,
+				66C32E2A16A39D1B004ED9AE /* CAuthorListSegue.m in Sources */,
+				66C32E2D16A3A09C004ED9AE /* CAuthoringUnwindSegue.m in Sources */,
+				66C32E3016A3A0B0004ED9AE /* CListViewUnwindSegue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CViewController : UICollectionViewController 
+@interface CViewController : UICollectionViewController
+
+- (IBAction)cancelAuthoringUnwindSegue:(UIStoryboardSegue *)segue;
+- (IBAction)returnHomeUnwindSegue:(UIStoryboardSegue *)segue;
 
 @end
