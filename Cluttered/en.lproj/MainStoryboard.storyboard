@@ -54,7 +54,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GR8-Al-ISR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="177" y="89"/>
+            <point key="canvasLocation" x="-407" y="111"/>
         </scene>
         <!--List View Controller-->
         <scene sceneID="n9p-XZ-BA5">
@@ -111,7 +111,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C8b-4J-b1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="yd2-kM-Juq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="743" y="538"/>
+            <point key="canvasLocation" x="155" y="572"/>
         </scene>
         <!--Add List View Controller-->
         <scene sceneID="s5V-Wk-oIe">
@@ -190,7 +190,7 @@ list item 3</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cJa-ZU-kkU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="h7K-Hd-YMh" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="743" y="-128"/>
+            <point key="canvasLocation" x="155" y="-210"/>
         </scene>
     </scenes>
     <classes>

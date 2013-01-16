@@ -44,10 +44,8 @@ typedef enum {
 
 - (void)prepareLayout {
   [super prepareLayout];
-  NSLog(@"prepare layout.");
   static BOOL gesturized = NO;
   if (!gesturized) {
-    NSLog(@"setting up gestures");
     [self setupGestures];
     
     _threshold = CGRectInset(self.collectionView.frame, 50.0, 55.0);

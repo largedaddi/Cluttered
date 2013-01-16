@@ -12,9 +12,7 @@
 #import "ListItem.h"
 
 @interface CAddListViewController ()
-//@property (nonatomic, weak) IBOutlet UITextView *listAuthoringTextView;
 - (void)parseList;
-//- (List *)createNewList;
 @end
 
 @implementation CAddListViewController
@@ -30,13 +28,6 @@
 }
 
 #pragma mark - Private
-
-//- (List *)createNewList {
-//  NSManagedObjectContext *moc = [[ListsDataModel sharedDataModel] mainContext];
-//  return [List insertInManagedObjectContext:moc
-//                                       name:@""
-//                                    details:@""];
-//}
 
 - (void)parseList {
   
@@ -78,9 +69,6 @@
 }
 
 - (IBAction)saveNewList:(id)sender {
-  //TODO: create new list
-  //TODO: save new list
-  //  [List insertInManagedObjectContext:];
   [self parseList];
   [self dismiss:YES];
 }

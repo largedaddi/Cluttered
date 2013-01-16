@@ -22,7 +22,7 @@
 - (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
   if (self) {
-    // Custom initialization
+    
   }
   return self;
 }
@@ -30,19 +30,12 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  // Uncomment the following line to preserve selection between presentations.
-  // self.clearsSelectionOnViewWillAppear = NO;
-  
-  // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-  // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-  
   _listItems = [self.list.listItems allObjects];
   
   UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
   panGestureRecognizer.maximumNumberOfTouches = 1;
   [self.tableView addGestureRecognizer:panGestureRecognizer];
   
-//  [self.tableView registerClass:[CListItemCell class] forCellReuseIdentifier:@"ListItemCell"];
   [self.tableView registerNib:[UINib nibWithNibName:@"CListItemCell" bundle:nil]
        forCellReuseIdentifier:@"ListItemCell"];
 }
@@ -70,69 +63,12 @@
   CListItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
   
   ListItem *listItem = [_listItems objectAtIndex:indexPath.row];
-  NSLog(@"cell.detailsLabel.text: %@", cell.detailsLabel);
-  NSLog(@"listItem.details: %@", listItem.details);
   cell.detailsLabel.text = listItem.details;
-  
-  
-  //  cell.textLabel.text = listItem.details;
-  //  cell.detailTextLabel.text = [listItem.complete stringValue];
-  
-  
+ 
   return cell;
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
 #pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  // Navigation logic may go here. Create and push another view controller.
-  /*
-   <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-   // ...
-   // Pass the selected object to the new view controller.
-   [self.navigationController pushViewController:detailViewController animated:YES];
-   */
-}
 
 #pragma mark - Private
 
@@ -159,10 +95,6 @@
     [pgr setTranslation:CGPointZero
                  inView:self.tableView];
     
-    //    if (pgr.state == UIGestureRecognizerStateChanged) {
-    //
-    //    }
-    //    else
     if (pgr.state == UIGestureRecognizerStateEnded) {
       CGPoint velocity = [pgr velocityInView:self.tableView];
       CGFloat magnitude = sqrtf((velocity.x * velocity.x) + (velocity.y * velocity.y));

@@ -21,8 +21,6 @@
 {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
-    // Initialization code
-    NSLog(@"initwith style");
     [self commonInit];
   }
   return self;
@@ -32,7 +30,6 @@
 {
   self = [super initWithCoder:aDecoder];
   if (self) {
-    NSLog(@"initWithCoder");
     [self commonInit];
   }
   return self;
@@ -42,7 +39,6 @@
 {
   self = [super initWithFrame:frame];
   if (self) {
-    NSLog(@"initWithFrame");
     [self commonInit];
   }
   return self;
@@ -51,15 +47,6 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
   [super setSelected:selected animated:animated];
-  
-  // Configure the view for the selected state
-}
-
-- (void)drawRect:(CGRect)rect
-{
-  [super drawRect:rect];
-  
-  
 }
 
 #pragma mark - Public
