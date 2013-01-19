@@ -24,13 +24,11 @@
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Private
 
 - (void)parseList {
-  
   // Parse text view text.
   NSString *unparsedText = self.authoringTextView.text;
   NSArray *listItems = [unparsedText componentsSeparatedByString:@"\n"];
@@ -71,6 +69,22 @@
 - (IBAction)saveNewList:(id)sender {
   [self parseList];
   [self dismiss:YES];
+}
+
+#pragma mark - Segues
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier
+                                  sender:(id)sender
+{
+  return YES;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+                 sender:(id)sender
+{
+  if ([segue.identifier isEqualToString:@""]) {
+    
+  }
 }
 
 @end

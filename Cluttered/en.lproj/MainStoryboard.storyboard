@@ -49,7 +49,7 @@
                         <outlet property="collectionView" destination="SqQ-Pb-0Wv" id="7AI-dD-Nqj"/>
                         <outlet property="view" destination="SqQ-Pb-0Wv" id="cNp-jr-tTw"/>
                         <segue destination="wKu-j2-AHW" kind="modal" identifier="ViewList" id="Nrl-WC-uWz"/>
-                        <segue destination="fiP-ZG-p4f" kind="modal" identifier="AddNewList" id="dNk-Y8-WlI"/>
+                        <segue destination="fiP-ZG-p4f" kind="custom" identifier="AddNewList" customClass="CAuthorListSegue" id="dNk-Y8-WlI"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GR8-Al-ISR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -94,7 +94,7 @@
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <segue destination="yd2-kM-Juq" kind="unwind" unwindAction="returnHomeUnwindSegue:" id="PUE-ns-JE9"/>
+                                        <segue destination="yd2-kM-Juq" kind="unwind" identifier="goBack" unwindAction="goBackUnwindSegue:" id="B80-Id-Lqo"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -150,7 +150,7 @@ list item 3</string>
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="h7K-Hd-YMh" kind="unwind" unwindAction="cancelAuthoringUnwindSegue:" id="M1g-B3-uXj"/>
+                                            <segue destination="h7K-Hd-YMh" kind="unwind" identifier="cancelAuthoring" unwindAction="cancelAuthoringUnwindSegue:" id="M1g-B3-uXj"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="h1g-Hh-ywW">
@@ -164,6 +164,9 @@ list item 3</string>
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="h7K-Hd-YMh" kind="unwind" identifier="viewNewList" unwindAction="viewNewListUnwindSegue:" id="RHZ-rd-13W"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -203,12 +206,15 @@ list item 3</string>
         </class>
         <class className="CListViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CListViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="viewNewListUnwindSegue:" candidateClass="UIStoryboardSegue"/>
+            </relationships>
         </class>
         <class className="CViewController" superclassName="UICollectionViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CViewController.h"/>
             <relationships>
                 <relationship kind="action" name="cancelAuthoringUnwindSegue:" candidateClass="UIStoryboardSegue"/>
-                <relationship kind="action" name="returnHomeUnwindSegue:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="goBackUnwindSegue:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="outlet" name="collectionView" candidateClass="UICollectionView"/>
             </relationships>
         </class>

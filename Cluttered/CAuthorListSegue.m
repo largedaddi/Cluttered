@@ -10,4 +10,12 @@
 
 @implementation CAuthorListSegue
 
+- (void)perform
+{
+  UIViewController *source = self.sourceViewController;
+  UIViewController *destination = self.destinationViewController;
+  [source presentViewController:destination animated:NO completion:nil];
+}
+
 @end
+

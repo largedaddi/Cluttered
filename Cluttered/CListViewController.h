@@ -11,4 +11,8 @@
 
 @interface CListViewController : UITableViewController
 @property (nonatomic, strong) List *list;
+
+// Unwind Segues
+- (IBAction)viewNewListUnwindSegue:(UIStoryboardSegue *)segue;
+
 @end

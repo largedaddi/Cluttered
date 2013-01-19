@@ -17,12 +17,17 @@
 @interface CViewController () <CAddListViewControllerDelegate, PLKClutteredDelegateLayout>
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
 - (void)loadLists;
+- (void)addButton;
+- (void)removeButton:(void (^)(void))completion;
 @end
 
 @implementation CViewController {
   NSFetchedResultsController *_fetchedResultsController;
   NSMutableArray *_lists;
   NSMutableArray *_swipedLists;
+  
+  // UI Elements
+  UIButton *_addButton;
 }
 
 - (void)viewDidLoad {
@@ -33,26 +38,8 @@
   [self loadLists];
   _swipedLists = [[NSMutableArray alloc] init];
   
+  [self addButton];
   
-  UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  [addButton addTarget:self
-                action:@selector(authorList)
-      forControlEvents:UIControlEventTouchUpInside];
-  [addButton setTitle:@"+"
-             forState:UIControlStateNormal];
-  [addButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-  addButton.frame = CGRectMake(self.collectionView.bounds.size.width - 30.0, -20.0, 20.0, 20.0);
-  [self.collectionView addSubview:addButton];
-  
-  addButton.alpha = 0.0;
-  [UIView animateWithDuration:0.25
-                        delay:0.25
-                      options:UIViewAnimationOptionCurveEaseOut
-                   animations:^{
-                     addButton.alpha = 1.0;
-                     addButton.center = CGPointMake(addButton.center.x,
-                                                    addButton.center.y + 30.0);
-                   } completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,24 +67,50 @@
   }
 }
 
-- (void)authorList
+- (void)addButton
 {
-  [self performSegueWithIdentifier:@"AddNewList"
-                            sender:nil];
+  _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  [_addButton addTarget:self
+                 action:@selector(transitionToAuthorList)
+       forControlEvents:UIControlEventTouchUpInside];
+  [_addButton setTitle:@"+"
+              forState:UIControlStateNormal];
+  [_addButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+  _addButton.frame = CGRectMake(self.collectionView.bounds.size.width - 30.0, -20.0, 20.0, 20.0);
+  [self.collectionView addSubview:_addButton];
+  
+  _addButton.alpha = 0.0;
+  [UIView animateWithDuration:0.25
+                        delay:0.25
+                      options:UIViewAnimationOptionCurveEaseOut
+                   animations:^{
+                     _addButton.alpha = 1.0;
+                     _addButton.center = CGPointMake(_addButton.center.x,
+                                                     _addButton.center.y + 30.0);
+                   } completion:nil];
 }
+
+- (void)removeButton:(void (^)(void))completion
+{
+  [UIView animateWithDuration:0.25
+                        delay:0.0
+                      options:UIViewAnimationOptionCurveEaseIn
+                   animations:^{
+                     _addButton.center = CGPointMake(_addButton.center.x,
+                                                     _addButton.center.y - 30.0);
+                     _addButton.alpha = 0.0;
+                   }
+                   completion:^(BOOL finished) {
+                     [_addButton removeFromSuperview];
+                     completion();
+                   }];
+}
+
+
 
 #pragma mark - Public
 
-- (IBAction)cancelAuthoringUnwindSegue:(id)sender
-{
-  NSLog(@"cancel authoring unwind");
-  
-}
 
-- (IBAction)returnHomeUnwindSegue:(UIStoryboardSegue *)segue
-{
-  NSLog(@"return home.");
-}
 
 #pragma mark - UICollectionView Data Source
 
@@ -155,7 +168,7 @@ itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
     
     [_swipedLists insertObject:swipedOutList atIndex:0];
     [_lists removeObject:swipedOutList];
-   
+    
     [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
     
   }
@@ -185,6 +198,33 @@ itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
     CListViewController *destinationViewController = segue.destinationViewController;
     destinationViewController.list = sender;
   }
+}
+
+- (void)transitionToAuthorList
+{
+  [self removeButton:^{
+    NSLog(@"button removed");
+    [self.collectionView performBatchUpdates:^{
+      int64_t delayInSeconds = 2.0;
+      dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+      dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        
+      });
+    } completion:^(BOOL finished) {
+      [self performSegueWithIdentifier:@"AddNewList"
+                                sender:nil];
+    }];
+  }];
+}
+
+- (IBAction)cancelAuthoringUnwindSegue:(UIStoryboardSegue *)segue
+{
+  NSLog(@"cancel authoring unwind");
+}
+
+- (IBAction)goBackUnwindSegue:(UIStoryboardSegue *)segue
+{
+  NSLog(@"return home.");
 }
 
 @end
