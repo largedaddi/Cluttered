@@ -28,7 +28,7 @@ typedef enum {
   CGRect _threshold;
   NSIndexPath *_selectedIndexPath;
   
-  CGPoint _finalDestination;
+//  CGPoint _finalDestination;
   CGPoint _initialStartingPoint;
 }
 
@@ -53,8 +53,7 @@ typedef enum {
     gesturized = YES;
   }
   
-  _cellCount = [self.collectionView numberOfItemsInSection:0];
-  
+  _cellCount = ([self.collectionView numberOfSections]) ? [self.collectionView numberOfItemsInSection:0] : 0;
 }
 
 - (CGSize)collectionViewContentSize {
@@ -107,6 +106,8 @@ typedef enum {
 - (void)prepareForCollectionViewUpdates:(NSArray *)updateItems
 {
   [super prepareForCollectionViewUpdates:updateItems];
+  
+  NSLog(@"updateItems: %@", updateItems);
   
   for (UICollectionViewUpdateItem *updateItem in updateItems) {
     if (updateItem.updateAction == UICollectionUpdateActionDelete) {
@@ -168,11 +169,13 @@ typedef enum {
       float m = sqrtf((v.x * v.x) + (v.y * v.y));
       NSLog(@"m: %f", m);
       
-      _finalDestination = self.collectionView.center;
+//      _finalDestination = self.collectionView.center;
+      self.finalDestination = self.collectionView.center;
       
       if (m > 1000) {
        
-        _finalDestination = CGPointMake(v.x - self.collectionView.center.x, v.y - self.collectionView.center.y);
+//        _finalDestination = CGPointMake(v.x - self.collectionView.center.x, v.y - self.collectionView.center.y);
+        self.finalDestination = CGPointMake(v.x - self.collectionView.center.x, v.y - self.collectionView.center.y);
         
         if (_selectedIndexPath) {
           [delegate collectionView:self.collectionView itemAtIndexPathThrownOut:_selectedIndexPath];

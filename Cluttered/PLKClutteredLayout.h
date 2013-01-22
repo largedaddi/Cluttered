@@ -10,6 +10,7 @@
 
 @interface PLKClutteredLayout : UICollectionViewLayout
 - (id)init;
+@property (nonatomic, assign) CGPoint finalDestination;
 @end
 
 @protocol PLKClutteredDelegateLayout <UICollectionViewDelegate>

@@ -115,18 +115,22 @@
 #pragma mark - UICollectionView Data Source
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-  return [_lists count];
+  int count = _lists.count;
+  NSLog(@"number of items in section %d: %d", section, count);
+  return count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-  return 1;
+  int ns = (_lists.count) ? 1 : 0;
+  NSLog(@"number of sections: %d", ns);
+  
+  return ns;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
   PLKClutteredCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ListCell" forIndexPath:indexPath];
   
   List *list = _lists[indexPath.row];
-  
   cell.titleLabel.text = list.name;
   
   return cell;
@@ -204,17 +208,49 @@ itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
 {
   [self removeButton:^{
     NSLog(@"button removed");
-    [self.collectionView performBatchUpdates:^{
-      int64_t delayInSeconds = 2.0;
-      dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-      dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        
-      });
-    } completion:^(BOOL finished) {
-      [self performSegueWithIdentifier:@"AddNewList"
-                                sender:nil];
-    }];
+    [self testRemoval];
   }];
+}
+
+- (void)testRemoval
+{
+  NSLog(@"test removal");
+  
+  CGPoint x = CGPointMake(self.collectionView.center.x - (self.collectionView.bounds.size.width + 50),
+                          self.collectionView.center.y);
+  
+  int index = _lists.count - 1;
+  NSLog(@"index: %d", index);
+  UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:index
+                                                                                              inSection:0]];
+  if (index != -1) {
+    [UIView animateWithDuration:0.25
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                       NSLog(@"animating");
+                       
+                       
+                       NSLog(@"cell.name: %@", ((PLKClutteredCell *)cell).titleLabel.text);
+                       cell.center = x;
+                     } completion:^(BOOL finished) {
+                       if (_lists.count) {
+                         [_lists removeObjectAtIndex:index];
+                         [self testRemoval];
+                       } else {
+//                       [_lists removeAllObjects];
+//                       [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:0]];
+//
+//                       [self performSegueWithIdentifier:@"AddNewList" sender:nil];
+                       }
+                     }];
+  }
+  else {
+    [_lists removeAllObjects];
+    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:0]];
+    
+    [self performSegueWithIdentifier:@"AddNewList" sender:nil];
+  }
 }
 
 - (IBAction)cancelAuthoringUnwindSegue:(UIStoryboardSegue *)segue
