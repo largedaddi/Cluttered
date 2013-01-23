@@ -40,6 +40,8 @@
   
   [self addButton];
   
+  NSLog(@"main view frame: %@", self.view);
+  NSLog(@"main view frame: %@", NSStringFromCGRect(self.view.bounds));
 }
 
 - (void)didReceiveMemoryWarning {
@@ -247,7 +249,8 @@ itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
   }
   else {
     [_lists removeAllObjects];
-    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:0]];
+//    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:0]];
+    [self.collectionView reloadData];
     
     [self performSegueWithIdentifier:@"AddNewList" sender:nil];
   }

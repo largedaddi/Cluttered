@@ -19,7 +19,8 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  [self.authoringTextView becomeFirstResponder];
+//  [self.authoringTextView becomeFirstResponder];
+  NSLog(@"add list view controller center: %@", NSStringFromCGPoint(self.view.center));
 }
 
 - (void)didReceiveMemoryWarning {
