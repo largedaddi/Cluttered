@@ -1,0 +1,10 @@
+Title: Remove PLKTextViewController
+Status: Open
+Assigned To: 
+Created By: Pilks <spilkent@nearinfinity.com>
+Created Date: 1/24/2013 01:35:41 AM
+Modified By: Pilks <spilkent@nearinfinity.com>
+Modified Date: 1/24/2013 01:35:41 AM
+Description:
+ Also, fix it so it does improperly resize the text view when the keyboard shows.
+Comments:
