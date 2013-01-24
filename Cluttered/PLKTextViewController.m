@@ -87,11 +87,13 @@
 - (void)keyboardWasShown:(NSNotification *)notification {
   NSDictionary *d = [notification userInfo];
   CGRect kbFrame = [[d objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-  CGRect viewFrame = self.view.frame;
-  [self determineOrientation];
-  viewFrame.size.height -= (_portrait) ? kbFrame.size.height : kbFrame.size.width;
-  self.authoringTextView.frame = viewFrame;
-  [self scrollToCursor];
+  if (CGRectIntersectsRect(self.authoringTextView.frame, kbFrame)) {
+    CGRect viewFrame = self.view.frame;
+    [self determineOrientation];
+    viewFrame.size.height -= (_portrait) ? kbFrame.size.height : kbFrame.size.width;
+    self.authoringTextView.frame = viewFrame;
+    [self scrollToCursor];
+  }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {

@@ -22,41 +22,31 @@
   
   UIView *destinationView = destination.view;
   NSLog(@"destinationView: %@", destinationView);
+  NSLog(@"destinationView: %@", NSStringFromClass([destinationView class]));
   NSLog(@"destinationView.center: %@", NSStringFromCGPoint(destinationView.center));
   
-//  destinationView.frame = sourceView.bounds;
+  destinationView.center = CGPointMake(destinationView.center.x,
+                                       destinationView.center.y - destinationView.bounds.size.height);
   
-//  destinationView.frame = CGRectMake(sourceView.bounds.origin.x,
-//                                     sourceView.bounds.origin.y - sourceView.bounds.size.height,
-//                                     sourceView.bounds.size.width,
-//                                     sourceView.bounds.size.height);
-  
-//  destinationView.frame = CGRectMake(destinationView.bounds.origin.x,
-//                                     destinationView.bounds.origin.y - sourceView.bounds.size.height,
-//                                     destinationView.bounds.size.width,
-//                                     destinationView.bounds.size.height);
-  
-  destinationView.center = CGPointMake(sourceView.bounds.size.width / 2,
-                                       -sourceView.bounds.size.height / 2);
-  
-  
-//  destinationView.center = CGPointMake(destinationView.center.x,
-//                                       destinationView.center.y - destinationView.bounds.size.height);
   [sourceView addSubview:destinationView];
   
-  [UIView animateWithDuration:0.25
+  [UIView animateWithDuration:0.75
                         delay:0.0
                       options:UIViewAnimationCurveEaseOut
                    animations:^{
 //                     destinationView.center = sourceView.center;
                      destinationView.center = CGPointMake(sourceView.center.x, sourceView.center.y - 20.0);
+//                     destinationView.center = CGPointMake(sourceView.center.x, sourceView.center.y);
                    } completion:^(BOOL finished) {
                      [destinationView removeFromSuperview];
                      [source presentViewController:destination animated:NO completion:nil];
                      NSLog(@"destinationViewControler.view: %@", destination.view);
+                     
                      [((CAddListViewController *)destination).authoringTextView becomeFirstResponder];
                      
             NSLog(@"destinationView.center: %@", NSStringFromCGPoint(destination.view.center));
+                     
+                     [((CAddListViewController *)destination) insertCancelAndSave];
                      
                    }];
   

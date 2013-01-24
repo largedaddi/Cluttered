@@ -17,4 +17,6 @@
 
 @property (nonatomic, assign) id<CAddListViewControllerDelegate> delegate;
 
+- (void)insertCancelAndSave;
+
 @end
