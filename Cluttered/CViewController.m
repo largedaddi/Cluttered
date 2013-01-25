@@ -13,10 +13,12 @@
 #import "CListViewController.h"
 #import "PLKClutteredCell.h"
 #import "PLKClutteredLayout.h"
+#import "CAuthoringUnwindSegue.h"
 
-@interface CViewController () <CAddListViewControllerDelegate, PLKClutteredDelegateLayout>
+@interface CViewController () <PLKClutteredDelegateLayout>
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
 - (void)loadLists;
+- (void)setLists;
 - (void)addButton;
 - (void)removeButton:(void (^)(void))completion;
 @end
@@ -63,10 +65,15 @@
   NSError *err = nil;
   if ([_fetchedResultsController performFetch:&err]) {
     NSLog(@"fetch success");
-    _lists = [NSMutableArray arrayWithArray:_fetchedResultsController.fetchedObjects];
+    [self setLists];
   } else {
     NSLog(@"fetch failed: %@ %@", [err localizedDescription], [err userInfo]);
   }
+}
+
+- (void)setLists
+{
+  _lists = [NSMutableArray arrayWithArray:_fetchedResultsController.fetchedObjects];
 }
 
 - (void)addButton
@@ -125,6 +132,8 @@
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
   int ns = (_lists.count) ? 1 : 0;
   NSLog(@"number of sections: %d", ns);
+  
+  return 1;
   
   return ns;
 }
@@ -199,11 +208,27 @@ itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
 {
   if ([segue.identifier isEqualToString:@"AddNewList"]) {
     CAddListViewController *destinationViewController = segue.destinationViewController;
-    [destinationViewController setDelegate:self];
+//    [destinationViewController setDelegate:self];
+    
   } else if ([segue.identifier isEqualToString:@"ViewList"]) {
     CListViewController *destinationViewController = segue.destinationViewController;
     destinationViewController.list = sender;
   }
+}
+
+- (UIStoryboardSegue *)segueForUnwindingToViewController:(UIViewController *)toViewController
+                                      fromViewController:(UIViewController *)fromViewController
+                                              identifier:(NSString *)identifier
+{
+  if ([identifier isEqualToString:@"cancelAuthoring"]) {
+    return [[CAuthoringUnwindSegue alloc] initWithIdentifier:identifier
+                                                      source:fromViewController
+                                                 destination:toViewController];
+  }
+  
+  return [super segueForUnwindingToViewController:toViewController
+                               fromViewController:fromViewController
+                                       identifier:identifier];
 }
 
 - (void)transitionToAuthorList
@@ -259,6 +284,8 @@ itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
 - (IBAction)cancelAuthoringUnwindSegue:(UIStoryboardSegue *)segue
 {
   NSLog(@"cancel authoring unwind");
+  [self setLists];
+  [self.collectionView reloadData];
 }
 
 - (IBAction)goBackUnwindSegue:(UIStoryboardSegue *)segue

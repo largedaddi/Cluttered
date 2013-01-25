@@ -10,6 +10,8 @@
 
 @interface PLKClutteredCell : UICollectionViewCell
 
+- (void)shadowize;
+
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "CAuthoringUnwindSegue.h"
+#import "CViewController.h"
 
 @implementation CAuthoringUnwindSegue
 

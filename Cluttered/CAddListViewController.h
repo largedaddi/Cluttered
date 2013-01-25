@@ -9,13 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PLKTextViewController.h"
 
-@protocol CAddListViewControllerDelegate <NSObject>
-- (void)dismiss:(BOOL)newList;
-@end
-
 @interface CAddListViewController : PLKTextViewController
-
-@property (nonatomic, assign) id<CAddListViewControllerDelegate> delegate;
 
 - (void)insertCancelAndSave;
 

@@ -7,6 +7,7 @@
 //
 
 #import "PLKClutteredLayout.h"
+#import "PLKClutteredCell.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define RANDOM_MAX 0x100000000
@@ -121,6 +122,21 @@ typedef enum {
 
 - (void)finalizeCollectionViewUpdates
 {
+  NSLog(@"finalize!");
+  
+  NSMutableArray *ma = [NSMutableArray array];
+  for (NSIndexPath *ip in _insertedItems) {
+    PLKClutteredCell *cell = (PLKClutteredCell *)[self.collectionView cellForItemAtIndexPath:ip];
+    [ma addObject:cell];
+  }
+  
+  [CATransaction setCompletionBlock:^{
+    for (PLKClutteredCell *c in ma) {
+      NSLog(@"animation finished.");
+      [c shadowize];
+    }
+  }];
+  
   [_insertedItems removeAllObjects];
   [_deletedItems removeAllObjects];
 }
@@ -190,11 +206,20 @@ typedef enum {
       
     } else {
       
-      float x = (v.x * -1) / 2;
-      float y = (v.y * -1) / 2;
-      NSLog(@"x: %f, y: %f", x, y);
-      _initialStartingPoint = CGPointMake(x, y);
-      [delegate swipeIn];
+      
+      
+      float m = sqrtf((v.x * v.x) + (v.y * v.y));
+      NSLog(@"m: %f", m);
+      
+      if (m > 1000) {
+      
+        float x = (v.x * -1) / 2;
+        float y = (v.y * -1) / 2;
+        NSLog(@"x: %f, y: %f", x, y);
+        _initialStartingPoint = CGPointMake(x, y);
+        [delegate swipeIn];
+          
+      }
       
     }
     

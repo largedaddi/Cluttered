@@ -84,7 +84,7 @@
   
   UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
   [cancelButton addTarget:self
-                 action:@selector(transitionToAuthorList)
+                 action:@selector(cancel)
        forControlEvents:UIControlEventTouchUpInside];
   [cancelButton setTitle:@"+"
               forState:UIControlStateNormal];
@@ -94,7 +94,7 @@
   
   cancelButton.alpha = 0.0;
   [UIView animateWithDuration:0.25
-                        delay:0.25
+                        delay:0.0
                       options:UIViewAnimationOptionCurveEaseOut
                    animations:^{
                      cancelButton.alpha = 1.0;
@@ -106,11 +106,14 @@
 #pragma mark - IBActions
 
 - (void)dismiss:(BOOL)newList {
-  [self.delegate dismiss:newList];
+//  [self.delegate dismiss:newList];
 }
 
-- (IBAction)cancel:(id)sender {
-  [self dismiss:NO];
+- (void)cancel
+{
+//  [self dismiss:NO];
+  [self performSegueWithIdentifier:@"cancelAuthoring"
+                            sender:nil];
 }
 
 - (IBAction)saveNewList:(id)sender {
@@ -132,6 +135,14 @@
   if ([segue.identifier isEqualToString:@""]) {
     
   }
+}
+
+- (UIStoryboardSegue *)segueForUnwindingToViewController:(UIViewController *)toViewController fromViewController:(UIViewController *)fromViewController identifier:(NSString *)identifier
+{
+  NSLog(@"segueForUnwindingToViewController - CAddListViewController");
+  return [super segueForUnwindingToViewController:toViewController
+                               fromViewController:fromViewController
+                                       identifier:identifier];
 }
 
 @end
