@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface CViewController : UICollectionViewController
+
+- (void)loadLists;
+
 // Unwind Segues
 - (IBAction)cancelAuthoringUnwindSegue:(UIStoryboardSegue *)segue;
 - (IBAction)goBackUnwindSegue:(UIStoryboardSegue *)segue;

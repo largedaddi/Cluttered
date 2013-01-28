@@ -7,7 +7,7 @@
 //
 
 #import "CAuthorListSegue.h"
-#import "CAddListViewController.h"
+#import "CAuthorListViewController.h"
 
 @implementation CAuthorListSegue
 
@@ -42,11 +42,11 @@
                      [source presentViewController:destination animated:NO completion:nil];
                      NSLog(@"destinationViewControler.view: %@", destination.view);
                      
-                     [((CAddListViewController *)destination).authoringTextView becomeFirstResponder];
+                     [((CAuthorListViewController *)destination).authoringTextView becomeFirstResponder];
                      
             NSLog(@"destinationView.center: %@", NSStringFromCGPoint(destination.view.center));
                      
-                     [((CAddListViewController *)destination) insertCancelAndSave];
+                     [((CAuthorListViewController *)destination) insertCancelAndSave];
                      
                    }];
   

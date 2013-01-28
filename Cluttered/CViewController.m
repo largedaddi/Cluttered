@@ -7,7 +7,7 @@
 //
 
 #import "CViewController.h"
-#import "CAddListViewController.h"
+#import "CAuthorListViewController.h"
 #import "ListsDataModel.h"
 #import "List.h"
 #import "CListViewController.h"
@@ -17,7 +17,6 @@
 
 @interface CViewController () <PLKClutteredDelegateLayout>
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
-- (void)loadLists;
 - (void)setLists;
 - (void)addButton;
 - (void)removeButton:(void (^)(void))completion;
@@ -40,10 +39,22 @@
   [self loadLists];
   _swipedLists = [[NSMutableArray alloc] init];
   
-  [self addButton];
   
   NSLog(@"main view frame: %@", self.view);
   NSLog(@"main view frame: %@", NSStringFromCGRect(self.view.bounds));
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+  [super viewDidAppear:animated];
+  [self addButton];
+  
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+  
+  [super viewDidDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,25 +89,27 @@
 
 - (void)addButton
 {
-  _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  [_addButton addTarget:self
-                 action:@selector(transitionToAuthorList)
-       forControlEvents:UIControlEventTouchUpInside];
-  [_addButton setTitle:@"+"
-              forState:UIControlStateNormal];
-  [_addButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-  _addButton.frame = CGRectMake(self.collectionView.bounds.size.width - 30.0, -20.0, 20.0, 20.0);
-  [self.collectionView addSubview:_addButton];
-  
-  _addButton.alpha = 0.0;
-  [UIView animateWithDuration:0.25
-                        delay:0.25
-                      options:UIViewAnimationOptionCurveEaseOut
-                   animations:^{
-                     _addButton.alpha = 1.0;
-                     _addButton.center = CGPointMake(_addButton.center.x,
-                                                     _addButton.center.y + 30.0);
-                   } completion:nil];
+  if (!_addButton) {
+    _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_addButton addTarget:self
+                   action:@selector(transitionToAuthorList)
+         forControlEvents:UIControlEventTouchUpInside];
+    [_addButton setTitle:@"+"
+                forState:UIControlStateNormal];
+    [_addButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    _addButton.frame = CGRectMake(self.collectionView.bounds.size.width - 30.0, -20.0, 20.0, 20.0);
+    [self.collectionView addSubview:_addButton];
+    
+    _addButton.alpha = 0.0;
+    [UIView animateWithDuration:0.25
+                          delay:0.25
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                       _addButton.alpha = 1.0;
+                       _addButton.center = CGPointMake(_addButton.center.x,
+                                                       _addButton.center.y + 30.0);
+                     } completion:nil];
+  }
 }
 
 - (void)removeButton:(void (^)(void))completion
@@ -111,6 +124,7 @@
                    }
                    completion:^(BOOL finished) {
                      [_addButton removeFromSuperview];
+                     _addButton = nil;
                      completion();
                    }];
 }
@@ -207,7 +221,7 @@ itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
                  sender:(id)sender
 {
   if ([segue.identifier isEqualToString:@"AddNewList"]) {
-    CAddListViewController *destinationViewController = segue.destinationViewController;
+    CAuthorListViewController *destinationViewController = segue.destinationViewController;
 //    [destinationViewController setDelegate:self];
     
   } else if ([segue.identifier isEqualToString:@"ViewList"]) {

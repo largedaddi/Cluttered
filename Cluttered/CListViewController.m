@@ -11,7 +11,7 @@
 #import "ListItem.h"
 #import "CListItemCell.h"
 
-@interface CListViewController ()
+@interface CListViewController () <UIGestureRecognizerDelegate>
 - (void)pan:(UIPanGestureRecognizer *)pgr;
 @end
 
@@ -34,6 +34,7 @@
   
   UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
   panGestureRecognizer.maximumNumberOfTouches = 1;
+  panGestureRecognizer.delegate = self;
   [self.tableView addGestureRecognizer:panGestureRecognizer];
   
   [self.tableView registerNib:[UINib nibWithNibName:@"CListItemCell" bundle:nil]
@@ -43,6 +44,17 @@
 - (void)didReceiveMemoryWarning
 {
   [super didReceiveMemoryWarning];
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
+{
+  CGPoint translation = [gestureRecognizer translationInView:self.tableView];
+  if (fabsf(translation.x) > fabsf(translation.y)) {
+    return YES;
+  }
+  return NO;
 }
 
 #pragma mark - Table view data source
@@ -64,11 +76,12 @@
   
   ListItem *listItem = [_listItems objectAtIndex:indexPath.row];
   cell.detailsLabel.text = listItem.details;
- 
+  
   return cell;
 }
 
 #pragma mark - Table view delegate
+
 
 #pragma mark - Private
 

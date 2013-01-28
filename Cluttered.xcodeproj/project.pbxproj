@@ -37,7 +37,7 @@
 		66C32E2A16A39D1B004ED9AE /* CAuthorListSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C32E2916A39D1B004ED9AE /* CAuthorListSegue.m */; };
 		66C32E2D16A3A09C004ED9AE /* CAuthoringUnwindSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C32E2C16A3A09C004ED9AE /* CAuthoringUnwindSegue.m */; };
 		66C32E3016A3A0B0004ED9AE /* CListViewUnwindSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C32E2F16A3A0B0004ED9AE /* CListViewUnwindSegue.m */; };
-		66CFF117161D2782005CEA25 /* CAddListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CFF116161D2782005CEA25 /* CAddListViewController.m */; };
+		66CFF117161D2782005CEA25 /* CAuthorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CFF116161D2782005CEA25 /* CAuthorListViewController.m */; };
 		66D562C31659ADA400679AE3 /* PLKClutteredLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D562C21659ADA400679AE3 /* PLKClutteredLayout.m */; };
 		66EB873E169C766700405F99 /* PLKTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EB873D169C766700405F99 /* PLKTableViewCell.m */; };
 		66F0D7CD162B936D003119F7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66F0D7CC162B936D003119F7 /* CoreData.framework */; };
@@ -105,8 +105,8 @@
 		66C32E2C16A3A09C004ED9AE /* CAuthoringUnwindSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAuthoringUnwindSegue.m; sourceTree = "<group>"; };
 		66C32E2E16A3A0B0004ED9AE /* CListViewUnwindSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CListViewUnwindSegue.h; sourceTree = "<group>"; };
 		66C32E2F16A3A0B0004ED9AE /* CListViewUnwindSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CListViewUnwindSegue.m; sourceTree = "<group>"; };
-		66CFF115161D2782005CEA25 /* CAddListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAddListViewController.h; sourceTree = "<group>"; };
-		66CFF116161D2782005CEA25 /* CAddListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAddListViewController.m; sourceTree = "<group>"; };
+		66CFF115161D2782005CEA25 /* CAuthorListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAuthorListViewController.h; sourceTree = "<group>"; };
+		66CFF116161D2782005CEA25 /* CAuthorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAuthorListViewController.m; sourceTree = "<group>"; };
 		66D562C11659ADA400679AE3 /* PLKClutteredLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLKClutteredLayout.h; sourceTree = "<group>"; };
 		66D562C21659ADA400679AE3 /* PLKClutteredLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLKClutteredLayout.m; sourceTree = "<group>"; };
 		66EB873C169C766700405F99 /* PLKTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLKTableViewCell.h; sourceTree = "<group>"; };
@@ -163,8 +163,8 @@
 			children = (
 				66C32E2816A39D1B004ED9AE /* CAuthorListSegue.h */,
 				66C32E2916A39D1B004ED9AE /* CAuthorListSegue.m */,
-				66CFF115161D2782005CEA25 /* CAddListViewController.h */,
-				66CFF116161D2782005CEA25 /* CAddListViewController.m */,
+				66CFF115161D2782005CEA25 /* CAuthorListViewController.h */,
+				66CFF116161D2782005CEA25 /* CAuthorListViewController.m */,
 				669CE88D162388F600C229D8 /* PLKTextViewController.h */,
 				669CE88E162388F600C229D8 /* PLKTextViewController.m */,
 			);
@@ -411,7 +411,7 @@
 				66B893591619475C005261D2 /* main.m in Sources */,
 				66B8935D1619475C005261D2 /* CAppDelegate.m in Sources */,
 				66B893691619475C005261D2 /* CViewController.m in Sources */,
-				66CFF117161D2782005CEA25 /* CAddListViewController.m in Sources */,
+				66CFF117161D2782005CEA25 /* CAuthorListViewController.m in Sources */,
 				669CE88F162388F600C229D8 /* PLKTextViewController.m in Sources */,
 				66F0D7D2162B94F6003119F7 /* Lists.xcdatamodeld in Sources */,
 				664550CB162CB38A00193AE7 /* _List.m in Sources */,

@@ -6,16 +6,17 @@
 //  Copyright (c) 2012 Pilks. All rights reserved.
 //
 
-#import "CAddListViewController.h"
+#import "CAuthorListViewController.h"
 #import "ListsDataModel.h"
 #import "List.h"
 #import "ListItem.h"
+#import "CViewController.h"
 
-@interface CAddListViewController ()
+@interface CAuthorListViewController ()
 - (void)parseList;
 @end
 
-@implementation CAddListViewController
+@implementation CAuthorListViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -63,7 +64,7 @@
 {
   UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
   [saveButton addTarget:self
-                 action:@selector(transitionToAuthorList)
+                 action:@selector(saveNewList)
        forControlEvents:UIControlEventTouchUpInside];
   [saveButton setTitle:@"√"
               forState:UIControlStateNormal];
@@ -84,7 +85,7 @@
   
   UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
   [cancelButton addTarget:self
-                 action:@selector(cancel)
+                 action:@selector(unwindToMainScreen)
        forControlEvents:UIControlEventTouchUpInside];
   [cancelButton setTitle:@"+"
               forState:UIControlStateNormal];
@@ -105,20 +106,21 @@
 
 #pragma mark - IBActions
 
-- (void)dismiss:(BOOL)newList {
-//  [self.delegate dismiss:newList];
+- (void)saveNewList {
+//
+//  Should probably do this in an nsoperation.
+//  
+//
+  [self parseList];
+  
+  [self unwindToMainScreen];
 }
 
-- (void)cancel
+- (void)unwindToMainScreen
 {
 //  [self dismiss:NO];
   [self performSegueWithIdentifier:@"cancelAuthoring"
                             sender:nil];
-}
-
-- (IBAction)saveNewList:(id)sender {
-  [self parseList];
-  [self dismiss:YES];
 }
 
 #pragma mark - Segues
@@ -132,8 +134,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue
                  sender:(id)sender
 {
-  if ([segue.identifier isEqualToString:@""]) {
-    
+  if ([segue.identifier isEqualToString:@"cancelAuthoring"]) {
+    CViewController *destinationViewController = (CViewController *)segue.destinationViewController;
+    [destinationViewController loadLists];
   }
 }
 

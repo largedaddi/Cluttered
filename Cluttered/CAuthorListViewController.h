@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PLKTextViewController.h"
 
-@interface CAddListViewController : PLKTextViewController
+@interface CAuthorListViewController : PLKTextViewController
 
 - (void)insertCancelAndSave;
 
