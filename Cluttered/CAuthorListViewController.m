@@ -106,12 +106,44 @@
 
 #pragma mark - IBActions
 
+void MyDrawText (CGContextRef myContext, CGRect contextRect) // 1
+{
+  CGFloat w, h;
+  w = contextRect.size.width;
+  h = contextRect.size.height;
+  
+  
+  CGContextSelectFont (myContext, // 3
+                       "Helvetica-Bold",
+                       h/10,
+                       kCGEncodingMacRoman);
+  CGContextSetCharacterSpacing (myContext, 10); // 4
+  CGContextSetTextDrawingMode (myContext, kCGTextFillStroke); // 5
+  
+  CGContextSetRGBFillColor (myContext, 0, 1, 0, .5); // 6
+  CGContextSetRGBStrokeColor (myContext, 0, 0, 1, 1); // 7
+  
+  CGContextShowTextAtPoint (myContext, 40, 0, "Quartz 2D", 9); // 10
+}
+
+- (void)drawNewImage
+{
+  CGSize s = self.view.bounds.size;
+  UIGraphicsBeginImageContextWithOptions(s, true, 2.0);
+  
+//  Draw the list title text and up to 9 list items
+  
+  UIGraphicsEndImageContext();
+}
+
 - (void)saveNewList {
 //
 //  Should probably do this in an nsoperation.
 //  
 //
   [self parseList];
+  
+  [self drawNewImage];
   
   [self unwindToMainScreen];
 }

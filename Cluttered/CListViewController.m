@@ -12,7 +12,8 @@
 #import "CListItemCell.h"
 
 @interface CListViewController () <UIGestureRecognizerDelegate>
-- (void)pan:(UIPanGestureRecognizer *)pgr;
+- (void)handleListSwipe:(UIPanGestureRecognizer *)pgr;
+- (void)handleTwoFingerUnwind:(UISwipeGestureRecognizer *)sgr;
 @end
 
 @implementation CListViewController {
@@ -32,7 +33,14 @@
   
   _listItems = [self.list.listItems allObjects];
   
-  UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+  UISwipeGestureRecognizer *twoFingerUnwindGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTwoFingerUnwind:)];
+  twoFingerUnwindGestureRecognizer.numberOfTouchesRequired = 2;
+  twoFingerUnwindGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+  twoFingerUnwindGestureRecognizer.delaysTouchesBegan = YES;
+  [self.tableView addGestureRecognizer:twoFingerUnwindGestureRecognizer];
+  
+//  [self addListSwipingGesture];
+  UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleListSwipe:)];
   panGestureRecognizer.maximumNumberOfTouches = 1;
   panGestureRecognizer.delegate = self;
   [self.tableView addGestureRecognizer:panGestureRecognizer];
@@ -85,7 +93,7 @@
 
 #pragma mark - Private
 
-- (void)pan:(UIPanGestureRecognizer *)pgr
+- (void)handleListSwipe:(UIPanGestureRecognizer *)pgr
 {
   CGPoint point = [pgr locationInView:self.tableView];
   static CListItemCell *cell;
@@ -114,6 +122,16 @@
       [cell endSlashAtPoint:point
               withMagnitude:magnitude];
     }
+  }
+}
+
+- (void)handleTwoFingerUnwind:(UISwipeGestureRecognizer *)sgr
+{
+  NSUInteger touches = sgr.numberOfTouchesRequired;
+  NSLog(@"number of touches: %d", touches);
+  if (touches == 2) {
+    [self performSegueWithIdentifier:@"goBack"
+                              sender:nil];
   }
 }
 
