@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-//  [self.authoringTextView becomeFirstResponder];
+  //  [self.authoringTextView becomeFirstResponder];
   NSLog(@"add list view controller center: %@", NSStringFromCGPoint(self.view.center));
 }
 
@@ -85,10 +85,10 @@
   
   UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
   [cancelButton addTarget:self
-                 action:@selector(unwindToMainScreen)
-       forControlEvents:UIControlEventTouchUpInside];
+                   action:@selector(unwindToMainScreen)
+         forControlEvents:UIControlEventTouchUpInside];
   [cancelButton setTitle:@"+"
-              forState:UIControlStateNormal];
+                forState:UIControlStateNormal];
   [cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
   cancelButton.frame = CGRectMake(-20.0, 10.0, 20.0, 20.0);
   [self.view addSubview:cancelButton];
@@ -100,47 +100,46 @@
                    animations:^{
                      cancelButton.alpha = 1.0;
                      cancelButton.center = CGPointMake(cancelButton.center.x + 30.0,
-                                                     cancelButton.center.y);
+                                                       cancelButton.center.y);
                    } completion:nil];
 }
 
 #pragma mark - IBActions
 
-void MyDrawText (CGContextRef myContext, CGRect contextRect) // 1
-{
-  CGFloat w, h;
-  w = contextRect.size.width;
-  h = contextRect.size.height;
-  
-  
-  CGContextSelectFont (myContext, // 3
-                       "Helvetica-Bold",
-                       h/10,
-                       kCGEncodingMacRoman);
-  CGContextSetCharacterSpacing (myContext, 10); // 4
-  CGContextSetTextDrawingMode (myContext, kCGTextFillStroke); // 5
-  
-  CGContextSetRGBFillColor (myContext, 0, 1, 0, .5); // 6
-  CGContextSetRGBStrokeColor (myContext, 0, 0, 1, 1); // 7
-  
-  CGContextShowTextAtPoint (myContext, 40, 0, "Quartz 2D", 9); // 10
-}
-
 - (void)drawNewImage
 {
   CGSize s = self.view.bounds.size;
-  UIGraphicsBeginImageContextWithOptions(s, true, 2.0);
+  UIGraphicsBeginImageContextWithOptions(s, true, 1.0);
   
-//  Draw the list title text and up to 9 list items
+  //  Draw the list title text and up to 9 list items
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  
+  NSLog(@"s: %@", NSStringFromCGSize(s));
+  
+  CGContextSelectFont(context, "Helvetica", s.height / 10, kCGEncodingMacRoman);
+  
+  CGContextSetCharacterSpacing (context, 10);
+  CGContextSetTextDrawingMode(context, kCGTextFillStroke);
+  
+  CGContextSetRGBFillColor (context, 0, 1, 0, .5);
+  CGContextSetRGBStrokeColor (context, 0, 0, 1, 1);
+  
+  CGContextShowTextAtPoint(context, 100, 100, "Test!", 5);
+  
+  UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
   
   UIGraphicsEndImageContext();
+  
+  UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+  imageView.image = image;
+  [self.view addSubview:imageView];
 }
 
 - (void)saveNewList {
-//
-//  Should probably do this in an nsoperation.
-//  
-//
+  //
+  //  Should probably do this in an nsoperation.
+  //
+  //
   [self parseList];
   
   [self drawNewImage];
@@ -150,9 +149,11 @@ void MyDrawText (CGContextRef myContext, CGRect contextRect) // 1
 
 - (void)unwindToMainScreen
 {
-//  [self dismiss:NO];
-  [self performSegueWithIdentifier:@"cancelAuthoring"
-                            sender:nil];
+  
+  [self drawNewImage];
+  
+  //  [self performSegueWithIdentifier:@"cancelAuthoring"
+  //                            sender:nil];
 }
 
 #pragma mark - Segues
