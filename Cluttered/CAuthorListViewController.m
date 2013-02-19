@@ -14,14 +14,19 @@
 
 @interface CAuthorListViewController ()
 - (void)parseList;
+- (void)createAndSaveImageForList:(List *)list;
 @end
 
-@implementation CAuthorListViewController
+@implementation CAuthorListViewController {
+  NSDateFormatter *_dateFormatter;
+}
 
 - (void)viewDidLoad {
   [super viewDidLoad];
   //  [self.authoringTextView becomeFirstResponder];
   NSLog(@"add list view controller center: %@", NSStringFromCGPoint(self.view.center));
+  _dateFormatter = [[NSDateFormatter alloc] init];
+  _dateFormatter.dateFormat = @"MM/dd/yyyy";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,9 +58,52 @@
   NSError *err = nil;
   if ([moc save:&err]) {
     NSLog(@"save success!!");
+    [self createAndSaveImageForList:list];
   } else {
     NSLog(@"save failed: %@ %@", [err localizedDescription], [err userInfo]);
   }
+}
+
+- (void)createAndSaveImageForList:(List *)list
+{
+  CGSize s = self.view.bounds.size;
+  UIGraphicsBeginImageContextWithOptions(s, true, 1.0);
+  
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  
+  
+  CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+  CGContextFillRect(context, CGRectMake(0, 0, s.width, s.height));
+  
+  
+  CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
+  CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
+  //  title
+  CGPoint p = CGPointMake(20, 20);
+  [list.name drawAtPoint:p withFont:[UIFont fontWithName:@"Avenir Next" size:18.0]];
+  
+  //  date
+  p.y += 26.0;
+  [[_dateFormatter stringFromDate:list.date] drawAtPoint:p withFont:[UIFont fontWithName:@"Avenir Next" size:11.0]];
+  
+  //  list items (up to 9 on iPhone 4)
+  p.y += 40.0;
+  int limit = (list.listItems.count > 9) ? 9 : list.listItems.count;
+  NSArray *listItems = [list.listItems allObjects];
+  for (int i = 0; i < limit; i++) {
+    ListItem *listItem = [listItems objectAtIndex:i];
+    [listItem.details drawAtPoint:p withFont:[UIFont fontWithName:@"Avenir Next" size:16.0]];
+    p.y += 36.0;
+  }
+  
+  UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+  
+  UIGraphicsEndImageContext();
+  
+  NSString *filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+  filePath = [filePath stringByAppendingFormat:@"/%@-%f.png", list.name, [NSDate timeIntervalSinceReferenceDate]];
+  
+  [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
 }
 
 #pragma mark - Public
@@ -106,43 +154,13 @@
 
 #pragma mark - IBActions
 
-- (void)drawNewImage
-{
-  CGSize s = self.view.bounds.size;
-  UIGraphicsBeginImageContextWithOptions(s, true, 1.0);
-  
-  //  Draw the list title text and up to 9 list items
-  CGContextRef context = UIGraphicsGetCurrentContext();
-  
-  NSLog(@"s: %@", NSStringFromCGSize(s));
-  
-  CGContextSelectFont(context, "Helvetica", s.height / 10, kCGEncodingMacRoman);
-  
-  CGContextSetCharacterSpacing (context, 10);
-  CGContextSetTextDrawingMode(context, kCGTextFillStroke);
-  
-  CGContextSetRGBFillColor (context, 0, 1, 0, .5);
-  CGContextSetRGBStrokeColor (context, 0, 0, 1, 1);
-  
-  CGContextShowTextAtPoint(context, 100, 100, "Test!", 5);
-  
-  UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-  
-  UIGraphicsEndImageContext();
-  
-  UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-  imageView.image = image;
-  [self.view addSubview:imageView];
-}
-
 - (void)saveNewList {
   //
   //  Should probably do this in an nsoperation.
   //
+  
   //
   [self parseList];
-  
-  [self drawNewImage];
   
   [self unwindToMainScreen];
 }
@@ -150,10 +168,11 @@
 - (void)unwindToMainScreen
 {
   
-  [self drawNewImage];
+  [self.authoringTextView resignFirstResponder];
   
-  //  [self performSegueWithIdentifier:@"cancelAuthoring"
-  //                            sender:nil];
+  
+  [self performSegueWithIdentifier:@"cancelAuthoring"
+                            sender:nil];
 }
 
 #pragma mark - Segues
