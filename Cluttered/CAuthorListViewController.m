@@ -38,13 +38,16 @@
 - (void)parseList {
   // Parse text view text.
   NSString *unparsedText = self.authoringTextView.text;
-  NSArray *listItems = [unparsedText componentsSeparatedByString:@"\n"];
+  NSMutableArray *listItems = [NSMutableArray arrayWithArray:[unparsedText componentsSeparatedByString:@"\n"]];
+  
   
   // Create new List object.
   NSManagedObjectContext *moc = [[ListsDataModel sharedDataModel] mainContext];
   List *list = [List insertInManagedObjectContext:moc
-                                             name:[NSString stringWithFormat:@"List-%@", listItems[0]]
+                                             name:[NSString stringWithFormat:@"%@", listItems[0]]
                                           details:@""];
+  // Remove title
+  [listItems removeObjectAtIndex:0];
   
   // Create new ListItems.
   ListItem *listItem = nil;
