@@ -105,6 +105,7 @@
 		66C32E2C16A3A09C004ED9AE /* CAuthoringUnwindSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAuthoringUnwindSegue.m; sourceTree = "<group>"; };
 		66C32E2E16A3A0B0004ED9AE /* CListViewUnwindSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CListViewUnwindSegue.h; sourceTree = "<group>"; };
 		66C32E2F16A3A0B0004ED9AE /* CListViewUnwindSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CListViewUnwindSegue.m; sourceTree = "<group>"; };
+		66CA757C16D5DEDB00AA99C0 /* Lists 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lists 3.xcdatamodel"; sourceTree = "<group>"; };
 		66CFF115161D2782005CEA25 /* CAuthorListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAuthorListViewController.h; sourceTree = "<group>"; };
 		66CFF116161D2782005CEA25 /* CAuthorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAuthorListViewController.m; sourceTree = "<group>"; };
 		66D562C11659ADA400679AE3 /* PLKClutteredLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLKClutteredLayout.h; sourceTree = "<group>"; };
@@ -619,10 +620,11 @@
 		66F0D7D0162B94F6003119F7 /* Lists.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				66CA757C16D5DEDB00AA99C0 /* Lists 3.xcdatamodel */,
 				66F00C451640C098000974F2 /* Lists 2.xcdatamodel */,
 				66F0D7D1162B94F6003119F7 /* Lists.xcdatamodel */,
 			);
-			currentVersion = 66F0D7D1162B94F6003119F7 /* Lists.xcdatamodel */;
+			currentVersion = 66CA757C16D5DEDB00AA99C0 /* Lists 3.xcdatamodel */;
 			path = Lists.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
