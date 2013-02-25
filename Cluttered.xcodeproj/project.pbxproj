@@ -105,7 +105,7 @@
 		66C32E2C16A3A09C004ED9AE /* CAuthoringUnwindSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAuthoringUnwindSegue.m; sourceTree = "<group>"; };
 		66C32E2E16A3A0B0004ED9AE /* CListViewUnwindSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CListViewUnwindSegue.h; sourceTree = "<group>"; };
 		66C32E2F16A3A0B0004ED9AE /* CListViewUnwindSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CListViewUnwindSegue.m; sourceTree = "<group>"; };
-		66CA757C16D5DEDB00AA99C0 /* Lists 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lists 3.xcdatamodel"; sourceTree = "<group>"; };
+		66CA757C16D5DEDB00AA99C0 /* Lists 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Lists 3.xcdatamodel"; sourceTree = "<group>"; };
 		66CFF115161D2782005CEA25 /* CAuthorListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAuthorListViewController.h; sourceTree = "<group>"; };
 		66CFF116161D2782005CEA25 /* CAuthorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAuthorListViewController.m; sourceTree = "<group>"; };
 		66D562C11659ADA400679AE3 /* PLKClutteredLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLKClutteredLayout.h; sourceTree = "<group>"; };
@@ -307,6 +307,7 @@
 				66B893441619475C005261D2 /* Sources */,
 				66B893451619475C005261D2 /* Frameworks */,
 				66B893461619475C005261D2 /* Resources */,
+				6675563916DB170200AC755F /* Run Mogenerator */,
 			);
 			buildRules = (
 			);
@@ -389,6 +390,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6675563916DB170200AC755F /* Run Mogenerator */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Mogenerator";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "MODELS_DIR=\"Cluttered/DataModel\"\nDATA_MODEL_PACKAGE=\"$MODELS_DIR/Lists.xcdatamodeld\"\nCURRENT_VERSION=`/usr/libexec/PlistBuddy \"$DATA_MODEL_PACKAGE/.xccurrentversion\" -c 'print _XCCurrentVersionName'`\nmogenerator --template-var arc=true --model \"$DATA_MODEL_PACKAGE/$CURRENT_VERSION\" --output-dir \"$MODELS_DIR/\"";
+		};
 		66B8936D1619475C005261D2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -624,7 +639,7 @@
 				66F00C451640C098000974F2 /* Lists 2.xcdatamodel */,
 				66F0D7D1162B94F6003119F7 /* Lists.xcdatamodel */,
 			);
-			currentVersion = 66CA757C16D5DEDB00AA99C0 /* Lists 3.xcdatamodel */;
+			currentVersion = 66F0D7D1162B94F6003119F7 /* Lists.xcdatamodel */;
 			path = Lists.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -6,6 +6,7 @@
 const struct ListAttributes ListAttributes = {
 	.date = @"date",
 	.details = @"details",
+	.imagePath = @"imagePath",
 	.name = @"name",
 };
 
@@ -57,6 +58,13 @@ const struct ListFetchedProperties ListFetchedProperties = {
 
 
 @dynamic details;
+
+
+
+
+
+
+@dynamic imagePath;
 
 
 

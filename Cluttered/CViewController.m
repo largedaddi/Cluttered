@@ -157,6 +157,8 @@
   
   List *list = _lists[indexPath.row];
   cell.titleLabel.text = list.name;
+  NSLog(@"list.imagePath: %@", list.imagePath);
+  cell.preview.image = [UIImage imageWithContentsOfFile:list.imagePath];
   
   return cell;
 }

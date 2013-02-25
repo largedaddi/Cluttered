@@ -7,6 +7,7 @@
 extern const struct ListAttributes {
 	__unsafe_unretained NSString *date;
 	__unsafe_unretained NSString *details;
+	__unsafe_unretained NSString *imagePath;
 	__unsafe_unretained NSString *name;
 } ListAttributes;
 
@@ -18,6 +19,7 @@ extern const struct ListFetchedProperties {
 } ListFetchedProperties;
 
 @class ListItem;
+
 
 
 
@@ -47,6 +49,14 @@ extern const struct ListFetchedProperties {
 
 
 //- (BOOL)validateDetails:(id*)value_ error:(NSError**)error_;
+
+
+
+
+@property (nonatomic, strong) NSString* imagePath;
+
+
+//- (BOOL)validateImagePath:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -90,6 +100,12 @@ extern const struct ListFetchedProperties {
 
 - (NSString*)primitiveDetails;
 - (void)setPrimitiveDetails:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveImagePath;
+- (void)setPrimitiveImagePath:(NSString*)value;
 
 
 

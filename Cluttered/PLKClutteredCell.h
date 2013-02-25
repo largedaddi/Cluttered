@@ -13,5 +13,6 @@
 - (void)shadowize;
 
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *preview;
 
 @end

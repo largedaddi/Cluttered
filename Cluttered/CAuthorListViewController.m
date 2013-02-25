@@ -58,10 +58,11 @@
                                                  list:list];
   }
   
+  [self createAndSaveImageForList:list];
+  
   NSError *err = nil;
   if ([moc save:&err]) {
     NSLog(@"save success!!");
-    [self createAndSaveImageForList:list];
   } else {
     NSLog(@"save failed: %@ %@", [err localizedDescription], [err userInfo]);
   }
@@ -69,6 +70,9 @@
 
 - (void)createAndSaveImageForList:(List *)list
 {
+  
+  NSLog(@"List: %@", list);
+  
   CGSize s = self.view.bounds.size;
   UIGraphicsBeginImageContextWithOptions(s, true, 1.0);
   
@@ -107,6 +111,9 @@
   filePath = [filePath stringByAppendingFormat:@"/%@-%f.png", list.name, [NSDate timeIntervalSinceReferenceDate]];
   
   [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
+  
+  list.imagePath = filePath;
+  
 }
 
 #pragma mark - Public
