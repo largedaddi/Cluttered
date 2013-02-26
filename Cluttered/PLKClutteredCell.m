@@ -45,13 +45,15 @@
 //  
 //  self.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
   
-  self.layer.borderColor = [UIColor lightGrayColor].CGColor;
-  self.layer.borderWidth = 1.0;
+//  self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//  self.layer.borderWidth = 1.0;
   
   self.layer.opaque = YES;
   self.layer.shouldRasterize = YES;
   
  self.contentView.backgroundColor = [UIColor whiteColor];
+  
+  [self shadowize];
 }
 
 #pragma mark - Public

@@ -70,6 +70,8 @@ typedef enum {
   r -= 25;
   r /= 100;
   
+  NSLog(@"r: %f", r);
+  
   attributes.transform3D = CATransform3DMakeRotation(r, 0., 0., 1.);
   
   return attributes;
@@ -133,7 +135,7 @@ typedef enum {
   [CATransaction setCompletionBlock:^{
     for (PLKClutteredCell *c in ma) {
       NSLog(@"animation finished.");
-      [c shadowize];
+//      [c shadowize];
     }
   }];
   

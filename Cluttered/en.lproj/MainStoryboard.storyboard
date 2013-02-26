@@ -46,7 +46,7 @@
                     <connections>
                         <outlet property="collectionView" destination="SqQ-Pb-0Wv" id="7AI-dD-Nqj"/>
                         <outlet property="view" destination="SqQ-Pb-0Wv" id="cNp-jr-tTw"/>
-                        <segue destination="wKu-j2-AHW" kind="modal" identifier="ViewList" id="Nrl-WC-uWz"/>
+                        <segue destination="wKu-j2-AHW" kind="custom" identifier="ViewList" customClass="CListViewSegue" id="Nrl-WC-uWz"/>
                         <segue destination="fiP-ZG-p4f" kind="custom" identifier="AddNewList" customClass="CAuthorListSegue" id="dNk-Y8-WlI"/>
                     </connections>
                 </collectionViewController>
