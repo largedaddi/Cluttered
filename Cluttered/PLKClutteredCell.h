@@ -11,8 +11,10 @@
 @interface PLKClutteredCell : UICollectionViewCell
 
 - (void)shadowize;
+- (void)unshadowize;
 
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *preview;
+@property (nonatomic, assign) CGFloat rotation;
 
 @end

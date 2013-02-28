@@ -10,6 +10,7 @@
 #import "CViewController.h"
 #import "CListViewController.h"
 #import "PLKClutteredCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation CListViewSegue
 
@@ -19,20 +20,34 @@
   CListViewController *destinationViewController = (CListViewController *)self.destinationViewController;
   PLKClutteredCell *cell = (PLKClutteredCell *)[sourceViewController.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
   
+  UICollectionViewLayoutAttributes *la = [sourceViewController.collectionView layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+  
+  
+  
+  
   NSLog(@"cell: %@", cell);
   
-  [UIView animateWithDuration:0.75 delay:0.0 options:UIViewAnimationCurveEaseOut
+  if (!cell.preview) {
+    NSLog(@"NO PREVIEW!!!");
+  }
+  
+  UIImageView *transitionImageView = [[UIImageView alloc] initWithFrame:cell.frame];
+  transitionImageView.image = cell.preview.image;
+  [sourceViewController.collectionView addSubview:transitionImageView];
+  
+  transitionImageView.layer.transform = CATransform3DIdentity;
+  
+  [UIView animateWithDuration:0.75 delay:0.50 options:UIViewAnimationCurveEaseOut
                    animations:^{
-                     CGAffineTransform rotate = CGAffineTransformMakeRotation(1);
-                     cell.preview.transform = rotate;
+                     
                      CGRect newBounds = cell.bounds;
                      newBounds.size = destinationViewController.view.bounds.size;
-                     cell.bounds = newBounds;
+                     transitionImageView.bounds = newBounds;
                    } completion:^(BOOL finished) {
+                     [transitionImageView removeFromSuperview];
                      [self.sourceViewController presentViewController:self.destinationViewController
                                                              animated:NO
                                                            completion:^{
-                                                             
                                                            }];
                    }];
 }
