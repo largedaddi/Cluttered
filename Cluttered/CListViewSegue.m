@@ -24,32 +24,69 @@
   
   
   
+  UIImageView *transitionImageView = [[UIImageView alloc] initWithFrame:cell.preview.bounds];
+  transitionImageView.center = cell.center;
   
-  NSLog(@"cell: %@", cell);
   
-  if (!cell.preview) {
-    NSLog(@"NO PREVIEW!!!");
-  }
   
-  UIImageView *transitionImageView = [[UIImageView alloc] initWithFrame:cell.frame];
   transitionImageView.image = cell.preview.image;
+  
+  transitionImageView.layer.transform = la.transform3D;
+  
+  [self shadowize:transitionImageView];
+  
   [sourceViewController.collectionView addSubview:transitionImageView];
   
-  transitionImageView.layer.transform = CATransform3DIdentity;
+  cell.hidden = YES;
   
-  [UIView animateWithDuration:0.75 delay:0.50 options:UIViewAnimationCurveEaseOut
+  
+  
+  [UIView animateWithDuration:0.75 delay:1.50 options:UIViewAnimationCurveEaseOut
                    animations:^{
                      
-                     CGRect newBounds = cell.bounds;
-                     newBounds.size = destinationViewController.view.bounds.size;
-                     transitionImageView.bounds = newBounds;
+                     //                     [self unshadowize:transitionImageView];
+                     
+                     transitionImageView.layer.transform = CATransform3DIdentity;
+                     
+                     
                    } completion:^(BOOL finished) {
-                     [transitionImageView removeFromSuperview];
-                     [self.sourceViewController presentViewController:self.destinationViewController
-                                                             animated:NO
-                                                           completion:^{
-                                                           }];
+                     
+                     [UIView animateWithDuration:0.75
+                                      animations:^{
+                                        
+                                        CGRect newBounds = cell.bounds;
+                                        newBounds.size = destinationViewController.view.bounds.size;
+                                        transitionImageView.bounds = newBounds;
+                                        
+                                      } completion:^(BOOL finished) {
+                                        
+                                        [transitionImageView removeFromSuperview];
+                                        [self.sourceViewController presentViewController:self.destinationViewController
+                                                                                animated:NO
+                                                                              completion:^{
+                                                                              }];
+                                        
+                                      }];
+                     
+                     
                    }];
 }
+
+- (void)shadowize:(UIView *)v
+{
+  v.layer.shadowOffset = CGSizeMake(0, 0);
+  v.layer.shadowRadius = 5.0;
+  v.layer.shadowColor = [UIColor blackColor].CGColor;
+  v.layer.shadowOpacity = 0.5;
+}
+
+- (void)unshadowize:(UIView *)v
+{
+  v.layer.shadowOffset = CGSizeMake(0, 0);
+  v.layer.shadowRadius = 0.0;
+  v.layer.shadowColor = [UIColor blackColor].CGColor;
+  v.layer.shadowOpacity = 0.0;
+}
+
 
 @end
