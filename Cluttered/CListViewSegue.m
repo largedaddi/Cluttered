@@ -32,6 +32,7 @@
   transitionImageView.image = cell.preview.image;
   
   transitionImageView.layer.transform = la.transform3D;
+  transitionImageView.layer.shouldRasterize = YES;
   
   [self shadowize:transitionImageView];
   
@@ -64,11 +65,10 @@
                                         [self.sourceViewController presentViewController:self.destinationViewController
                                                                                 animated:NO
                                                                               completion:^{
+                                                                                cell.hidden = NO;
                                                                               }];
                                         
                                       }];
-                     
-                     
                    }];
 }
 
