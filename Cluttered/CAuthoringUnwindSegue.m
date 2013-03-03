@@ -8,13 +8,21 @@
 
 #import "CAuthoringUnwindSegue.h"
 #import "CViewController.h"
+#import "CAuthorListViewController.h"
 
 @implementation CAuthoringUnwindSegue
 
 - (void)perform
 {
-  [self.destinationViewController dismissViewControllerAnimated:NO
-                                                     completion:nil];
+  
+  
+  CAuthorListViewController *source = (CAuthorListViewController *)self.sourceViewController;
+  CViewController *destination = (CViewController *)self.destinationViewController;
+  
+  [source removeCancelAndSave:^{
+    [self.destinationViewController dismissViewControllerAnimated:YES completion:nil];
+  }];
+  
 }
 
 @end

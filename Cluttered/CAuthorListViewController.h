@@ -12,5 +12,6 @@
 @interface CAuthorListViewController : PLKTextViewController
 
 - (void)insertCancelAndSave;
+- (void)removeCancelAndSave:(void(^)(void))onComplete;
 
 @end

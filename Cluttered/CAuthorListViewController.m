@@ -19,6 +19,8 @@
 
 @implementation CAuthorListViewController {
   NSDateFormatter *_dateFormatter;
+  UIButton *_saveButton;
+  UIButton *_cancelButton;
 }
 
 - (void)viewDidLoad {
@@ -120,46 +122,70 @@
 
 - (void)insertCancelAndSave
 {
-  UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  [saveButton addTarget:self
+  _saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  [_saveButton addTarget:self
                  action:@selector(saveNewList)
        forControlEvents:UIControlEventTouchUpInside];
-  [saveButton setTitle:@"√"
+  [_saveButton setTitle:@"√"
               forState:UIControlStateNormal];
-  [saveButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-  saveButton.frame = CGRectMake(self.view.bounds.size.width - 30.0, -20.0, 20.0, 20.0);
-  [self.view addSubview:saveButton];
+  [_saveButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+  _saveButton.frame = CGRectMake(self.view.bounds.size.width - 30.0, -20.0, 20.0, 20.0);
+  [self.view addSubview:_saveButton];
   
-  saveButton.alpha = 0.0;
+  _saveButton.alpha = 0.0;
   [UIView animateWithDuration:0.25
                         delay:0.25
                       options:UIViewAnimationOptionCurveEaseOut
                    animations:^{
-                     saveButton.alpha = 1.0;
-                     saveButton.center = CGPointMake(saveButton.center.x,
-                                                     saveButton.center.y + 30.0);
+                     _saveButton.alpha = 1.0;
+                     _saveButton.center = CGPointMake(_saveButton.center.x,
+                                                     _saveButton.center.y + 30.0);
                    } completion:nil];
   
   
-  UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  [cancelButton addTarget:self
+  _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  [_cancelButton addTarget:self
                    action:@selector(unwindToMainScreen)
          forControlEvents:UIControlEventTouchUpInside];
-  [cancelButton setTitle:@"+"
+  [_cancelButton setTitle:@"+"
                 forState:UIControlStateNormal];
-  [cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-  cancelButton.frame = CGRectMake(-20.0, 10.0, 20.0, 20.0);
-  [self.view addSubview:cancelButton];
+  [_cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+  _cancelButton.frame = CGRectMake(-20.0, 10.0, 20.0, 20.0);
+  [self.view addSubview:_cancelButton];
   
-  cancelButton.alpha = 0.0;
+  _cancelButton.alpha = 0.0;
   [UIView animateWithDuration:0.25
                         delay:0.0
                       options:UIViewAnimationOptionCurveEaseOut
                    animations:^{
-                     cancelButton.alpha = 1.0;
-                     cancelButton.center = CGPointMake(cancelButton.center.x + 30.0,
-                                                       cancelButton.center.y);
+                     _cancelButton.alpha = 1.0;
+                     _cancelButton.center = CGPointMake(_cancelButton.center.x + 30.0,
+                                                       _cancelButton.center.y);
                    } completion:nil];
+}
+
+- (void)removeCancelAndSave:(void(^)(void))onComplete
+{
+  [UIView animateWithDuration:0.25
+                        delay:0.0
+                      options:UIViewAnimationCurveEaseIn
+                   animations:^{
+                     _saveButton.alpha = 0.0;
+                     _saveButton.center = CGPointMake(self.view.bounds.size.width - 30.0, -20.0);
+                   } completion:^(BOOL finished) {
+                     [_saveButton removeFromSuperview];
+                   }];
+  
+  [UIView animateWithDuration:0.25
+                        delay:0.25
+                      options:UIViewAnimationCurveEaseIn
+                   animations:^{
+                     _cancelButton.alpha = 0.0;
+                     _cancelButton.center = CGPointMake(-20.0, 10.0);
+                   } completion:^(BOOL finished) {
+                     [_cancelButton removeFromSuperview];
+                     onComplete();
+                   }];
 }
 
 #pragma mark - IBActions
