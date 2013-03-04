@@ -97,9 +97,17 @@ typedef enum {
 }
 
 - (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
+  
+  
+  UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
+  
+  NSLog(@"final layout attributes for disappearing item: %@", itemIndexPath);
+  
   if ([_deletedItems containsObject:itemIndexPath]) {
     UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
+    
     attributes.center = _finalDestination;
+    NSLog(@"final layout attributes for disappearing item -- DELETE: %@", NSStringFromCGPoint(attributes.center));
     return attributes;
   } else {
     return [super finalLayoutAttributesForDisappearingItemAtIndexPath:itemIndexPath];
@@ -110,10 +118,13 @@ typedef enum {
 {
   [super prepareForCollectionViewUpdates:updateItems];
   
-  NSLog(@"updateItems: %@", updateItems);
   
   for (UICollectionViewUpdateItem *updateItem in updateItems) {
+    NSLog(@"updateItem: %@", updateItem);
+    
     if (updateItem.updateAction == UICollectionUpdateActionDelete) {
+      NSLog(@"prepare for collection view updates -- DELETE: %@", updateItem.indexPathBeforeUpdate);
+      
       [_deletedItems addObject:updateItem.indexPathBeforeUpdate];
     }
     else if (updateItem.updateAction == UICollectionUpdateActionInsert) {

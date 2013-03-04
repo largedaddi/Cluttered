@@ -34,14 +34,14 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  NSLog(@"CViewController loaded.");
+  
   self.collectionView.collectionViewLayout = [[PLKClutteredLayout alloc] init];
   
   [self loadLists];
   _swipedLists = [[NSMutableArray alloc] init];
   
   
-  NSLog(@"main view frame: %@", self.view);
-  NSLog(@"main view frame: %@", NSStringFromCGRect(self.view.bounds));
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -145,7 +145,7 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
   int ns = (_lists.count) ? 1 : 0;
-  NSLog(@"number of sections: %d", ns);
+//  NSLog(@"number of sections: %d", ns);
   
   return 1;
   
@@ -262,6 +262,8 @@ itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
   CGPoint x = CGPointMake(self.collectionView.center.x - (self.collectionView.bounds.size.width + 50),
                           self.collectionView.center.y);
   
+  ((PLKClutteredLayout *)self.collectionView.collectionViewLayout).finalDestination = x;
+  
   int index = _lists.count - 1;
   NSLog(@"index: %d", index);
   UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:index
@@ -290,10 +292,27 @@ itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
   }
   else {
     [_lists removeAllObjects];
-//    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:0]];
-    [self.collectionView reloadData];
     
-    [self performSegueWithIdentifier:@"AddNewList" sender:nil];
+
+    
+    
+    NSIndexSet *s = [NSIndexSet indexSetWithIndex:0];
+//    NSLog(@"index set to delete: %@", s);
+    NSLog(@"index set to delete: %@", s);
+    
+    [self.collectionView performBatchUpdates:^{
+      
+//      [self.collectionView deleteSections:s];
+      [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]]];
+      
+    } completion:^(BOOL finished) {
+      
+      [self performSegueWithIdentifier:@"AddNewList" sender:nil];
+      
+    }];
+    
+//    [self.collectionView reloadData];
+    
   }
 }
 

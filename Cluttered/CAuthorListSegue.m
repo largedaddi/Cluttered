@@ -17,13 +17,13 @@
   UIViewController *destination = self.destinationViewController;
   
   UIView *sourceView = source.view;
-  NSLog(@"sourceView: %@", sourceView);
-  NSLog(@"sourceView.center: %@", NSStringFromCGPoint(sourceView.center));
+//  NSLog(@"sourceView: %@", sourceView);
+//  NSLog(@"sourceView.center: %@", NSStringFromCGPoint(sourceView.center));
   
   UIView *destinationView = destination.view;
-  NSLog(@"destinationView: %@", destinationView);
-  NSLog(@"destinationView: %@", NSStringFromClass([destinationView class]));
-  NSLog(@"destinationView.center: %@", NSStringFromCGPoint(destinationView.center));
+//  NSLog(@"destinationView: %@", destinationView);
+//  NSLog(@"destinationView: %@", NSStringFromClass([destinationView class]));
+//  NSLog(@"destinationView.center: %@", NSStringFromCGPoint(destinationView.center));
   
   destinationView.center = CGPointMake(destinationView.center.x,
                                        destinationView.center.y - destinationView.bounds.size.height);

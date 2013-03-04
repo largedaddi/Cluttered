@@ -14,15 +14,17 @@
 
 - (void)perform
 {
-  
-  
   CAuthorListViewController *source = (CAuthorListViewController *)self.sourceViewController;
   CViewController *destination = (CViewController *)self.destinationViewController;
   
   [source removeCancelAndSave:^{
-    [self.destinationViewController dismissViewControllerAnimated:YES completion:nil];
+    [UIView animateWithDuration:0.25 animations:^{
+      
+    } completion:^(BOOL finished) {
+      [self.destinationViewController dismissViewControllerAnimated:NO completion:nil];
+    }];
+    
   }];
-  
 }
 
 @end

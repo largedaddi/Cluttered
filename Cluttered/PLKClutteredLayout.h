@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PLKClutteredLayout : UICollectionViewLayout
-- (id)init;
-@property (nonatomic, assign) CGPoint finalDestination;
-@end
-
 @protocol PLKClutteredDelegateLayout <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPathThrownOut:(NSIndexPath *)indexPath;
 - (void)swipeIn;
+@end
+
+@interface PLKClutteredLayout : UICollectionViewLayout
+- (id)init;
+@property (nonatomic, assign) CGPoint finalDestination;
 @end
