@@ -64,23 +64,7 @@
 
 #pragma mark - Private
 
-- (void)loadLists {
-  NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[List entityName]];
-  fetchRequest.fetchBatchSize = 40;
-  NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
-  fetchRequest.sortDescriptors = @[sortDescriptor];
-  _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                  managedObjectContext:[[ListsDataModel sharedDataModel] mainContext]
-                                                                    sectionNameKeyPath:nil
-                                                                             cacheName:nil];
-  NSError *err = nil;
-  if ([_fetchedResultsController performFetch:&err]) {
-    NSLog(@"fetch success");
-    [self setLists];
-  } else {
-    NSLog(@"fetch failed: %@ %@", [err localizedDescription], [err userInfo]);
-  }
-}
+
 
 - (void)setLists
 {
@@ -133,7 +117,33 @@
 
 #pragma mark - Public
 
+- (void)loadLists {
+  NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[List entityName]];
+  fetchRequest.fetchBatchSize = 40;
+  NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
+  fetchRequest.sortDescriptors = @[sortDescriptor];
+  _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                  managedObjectContext:[[ListsDataModel sharedDataModel] mainContext]
+                                                                    sectionNameKeyPath:nil
+                                                                             cacheName:nil];
+  NSError *err = nil;
+  if ([_fetchedResultsController performFetch:&err]) {
+    NSLog(@"fetch success");
+    [self setLists];
+  } else {
+    NSLog(@"fetch failed: %@ %@", [err localizedDescription], [err userInfo]);
+  }
+}
 
+- (void)insertLists
+{
+  NSMutableArray *ma = [[NSMutableArray alloc] init];
+  for (int i = 0; i < _lists.count; i++) {
+    [ma addObject:[NSIndexPath indexPathForItem:i inSection:0]];
+  }
+  
+  [self.collectionView insertItemsAtIndexPaths:ma];
+}
 
 #pragma mark - UICollectionView Data Source
 
@@ -320,7 +330,9 @@ itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
 {
   NSLog(@"cancel authoring unwind");
   [self setLists];
-  [self.collectionView reloadData];
+  
+
+//  [self.collectionView reloadData];
 }
 
 - (IBAction)goBackUnwindSegue:(UIStoryboardSegue *)segue

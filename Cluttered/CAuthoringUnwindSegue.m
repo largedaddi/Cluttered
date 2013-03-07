@@ -21,7 +21,9 @@
     [UIView animateWithDuration:0.25 animations:^{
       
     } completion:^(BOOL finished) {
-      [self.destinationViewController dismissViewControllerAnimated:NO completion:nil];
+      [destination dismissViewControllerAnimated:NO completion:^{
+        [destination insertLists];
+      }];
     }];
     
   }];
