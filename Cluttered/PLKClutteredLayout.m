@@ -29,7 +29,7 @@ typedef enum {
   CGRect _threshold;
   NSIndexPath *_selectedIndexPath;
   
-//  CGPoint _finalDestination;
+  //  CGPoint _finalDestination;
   CGPoint _initialStartingPoint;
 }
 
@@ -129,26 +129,31 @@ typedef enum {
     }
     else if (updateItem.updateAction == UICollectionUpdateActionInsert) {
       [_insertedItems addObject:updateItem.indexPathAfterUpdate];
+      [CATransaction setCompletionBlock:^{
+        PLKClutteredCell *cell = (PLKClutteredCell *)[self.collectionView cellForItemAtIndexPath:updateItem.indexPathAfterUpdate];
+        NSLog(@"animation finished. %@", cell);
+        [cell shadowize];
+      }];
     }
   }
+  
 }
 
 - (void)finalizeCollectionViewUpdates
 {
+  
+  //  NSMutableArray *ma = [NSMutableArray array];
+  //  for (NSIndexPath *ip in _insertedItems) {
+  //    [ma addObject:cell];
+  //  }
+  //
   NSLog(@"finalize!");
-  
-  NSMutableArray *ma = [NSMutableArray array];
-  for (NSIndexPath *ip in _insertedItems) {
-    PLKClutteredCell *cell = (PLKClutteredCell *)[self.collectionView cellForItemAtIndexPath:ip];
-    [ma addObject:cell];
-  }
-  
-  [CATransaction setCompletionBlock:^{
-    for (PLKClutteredCell *c in ma) {
-      NSLog(@"animation finished.");
-//      [c shadowize];
-    }
-  }];
+  //  [CATransaction setCompletionBlock:^{
+  //    for (PLKClutteredCell *c in ma) {
+  ////      [c shadowize];
+  //      NSLog(@"animation finished.");
+  //    }
+  //  }];
   
   [_insertedItems removeAllObjects];
   [_deletedItems removeAllObjects];
@@ -198,12 +203,12 @@ typedef enum {
       float m = sqrtf((v.x * v.x) + (v.y * v.y));
       NSLog(@"m: %f", m);
       
-//      _finalDestination = self.collectionView.center;
+      //      _finalDestination = self.collectionView.center;
       self.finalDestination = self.collectionView.center;
       
       if (m > 1000) {
-       
-//        _finalDestination = CGPointMake(v.x - self.collectionView.center.x, v.y - self.collectionView.center.y);
+        
+        //        _finalDestination = CGPointMake(v.x - self.collectionView.center.x, v.y - self.collectionView.center.y);
         self.finalDestination = CGPointMake(v.x - self.collectionView.center.x, v.y - self.collectionView.center.y);
         
         if (_selectedIndexPath) {
@@ -225,13 +230,13 @@ typedef enum {
       NSLog(@"m: %f", m);
       
       if (m > 1000) {
-      
+        
         float x = (v.x * -1) / 2;
         float y = (v.y * -1) / 2;
         NSLog(@"x: %f, y: %f", x, y);
         _initialStartingPoint = CGPointMake(x, y);
         [delegate swipeIn];
-          
+        
       }
       
     }

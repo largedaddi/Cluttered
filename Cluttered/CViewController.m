@@ -41,7 +41,12 @@
   [self loadLists];
   _swipedLists = [[NSMutableArray alloc] init];
   
-  
+  double delayInSeconds = 1.0;
+  dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+  dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    [self setLists];
+    [self insertLists];
+  });
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -129,7 +134,9 @@
   NSError *err = nil;
   if ([_fetchedResultsController performFetch:&err]) {
     NSLog(@"fetch success");
-    [self setLists];
+    
+//    [self setLists];
+    
   } else {
     NSLog(@"fetch failed: %@ %@", [err localizedDescription], [err userInfo]);
   }
@@ -142,7 +149,11 @@
     [ma addObject:[NSIndexPath indexPathForItem:i inSection:0]];
   }
   
-  [self.collectionView insertItemsAtIndexPaths:ma];
+  [self.collectionView performBatchUpdates:^{
+    [self.collectionView insertItemsAtIndexPaths:ma];
+  } completion:^(BOOL finished) {
+    
+  }];
 }
 
 #pragma mark - UICollectionView Data Source

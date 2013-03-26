@@ -53,7 +53,7 @@
   
  self.contentView.backgroundColor = [UIColor whiteColor];
   
-  [self shadowize];
+//  [self shadowize];
 }
 
 #pragma mark - Public
@@ -65,7 +65,7 @@
   self.layer.shadowColor = [UIColor blackColor].CGColor;
   self.layer.shadowOpacity = 0.5;
   
-  self.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
+//  self.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
 }
 
 - (void)unshadowize
