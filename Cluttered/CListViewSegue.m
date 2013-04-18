@@ -18,9 +18,14 @@
 {
   CViewController *sourceViewController = (CViewController *)self.sourceViewController;
   CListViewController *destinationViewController = (CListViewController *)self.destinationViewController;
-  PLKClutteredCell *cell = (PLKClutteredCell *)[sourceViewController.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+  NSInteger listCount = [sourceViewController.collectionView numberOfItemsInSection:0];
+  int rowIndex = listCount - 1;
+  NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForItem:rowIndex inSection:0];
   
-  UICollectionViewLayoutAttributes *la = [sourceViewController.collectionView layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+//  PLKClutteredCell *cell = (PLKClutteredCell *)[sourceViewController.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+  PLKClutteredCell *cell = (PLKClutteredCell *)[sourceViewController.collectionView cellForItemAtIndexPath:selectedIndexPath];
+//  UICollectionViewLayoutAttributes *la = [sourceViewController.collectionView layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+  UICollectionViewLayoutAttributes *la = [sourceViewController.collectionView layoutAttributesForItemAtIndexPath:selectedIndexPath];
   
   
   
