@@ -17,7 +17,7 @@
 
 @interface CViewController () <PLKClutteredDelegateLayout>
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
-- (void)setLists;
+- (void)updateLists;
 - (void)addButton;
 - (void)removeButton:(void (^)(void))completion;
 @end
@@ -44,8 +44,9 @@
   double delayInSeconds = 1.0;
   dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
   dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-    [self setLists];
-    [self insertLists];
+    
+    [self updateLists];
+    [self groupInsert];
   });
 }
 
@@ -71,7 +72,7 @@
 
 
 
-- (void)setLists
+- (void)updateLists
 {
   _lists = [NSMutableArray arrayWithArray:_fetchedResultsController.fetchedObjects];
 }
@@ -135,15 +136,19 @@
   if ([_fetchedResultsController performFetch:&err]) {
     NSLog(@"fetch success");
     
-//    [self setLists];
+//    [self updateLists];
     
   } else {
     NSLog(@"fetch failed: %@ %@", [err localizedDescription], [err userInfo]);
   }
 }
 
-- (void)insertLists
+- (void)groupInsert
 {
+  //  Update lists
+  [self updateLists];
+  
+  //  Group insert lists
   NSMutableArray *ma = [[NSMutableArray alloc] init];
   for (int i = 0; i < _lists.count; i++) {
     [ma addObject:[NSIndexPath indexPathForItem:i inSection:0]];
@@ -166,7 +171,8 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
   int ns = (_lists.count) ? 1 : 0;
-//  NSLog(@"number of sections: %d", ns);
+  
+  NSLog(@"number of sections: %d", ns);
   
   return 1;
   
@@ -272,75 +278,41 @@ itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
 {
   [self removeButton:^{
     NSLog(@"button removed");
-    [self testRemoval];
+    [self groupedRemoval];
   }];
 }
 
-- (void)testRemoval
+- (void)groupedRemoval
 {
   NSLog(@"test removal");
   
-  CGPoint x = CGPointMake(self.collectionView.center.x - (self.collectionView.bounds.size.width + 50),
-                          self.collectionView.center.y);
-  
-  ((PLKClutteredLayout *)self.collectionView.collectionViewLayout).finalDestination = x;
-  
   int index = _lists.count - 1;
-  NSLog(@"index: %d", index);
-  UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:index
-                                                                                              inSection:0]];
-  if (index != -1) {
-    [UIView animateWithDuration:0.25
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseIn
-                     animations:^{
-                       NSLog(@"animating");
-                       
-                       
-                       NSLog(@"cell.name: %@", ((PLKClutteredCell *)cell).titleLabel.text);
-                       cell.center = x;
-                     } completion:^(BOOL finished) {
-                       if (_lists.count) {
-                         [_lists removeObjectAtIndex:index];
-                         [self testRemoval];
-                       } else {
-//                       [_lists removeAllObjects];
-//                       [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:0]];
-//
-//                       [self performSegueWithIdentifier:@"AddNewList" sender:nil];
-                       }
-                     }];
-  }
-  else {
-    [_lists removeAllObjects];
+  if (index == -1) {
+    //    No (more) cells to deal with
+    [self performSegueWithIdentifier:@"AddNewList" sender:nil];
+  } else {
+    //    Cells to deal with
+    CGPoint x = CGPointMake(self.collectionView.center.x - (self.collectionView.bounds.size.width + 50),
+                            self.collectionView.center.y);
     
-
+    ((PLKClutteredLayout *)self.collectionView.collectionViewLayout).finalDestination = x;
     
     
-    NSIndexSet *s = [NSIndexSet indexSetWithIndex:0];
-//    NSLog(@"index set to delete: %@", s);
-    NSLog(@"index set to delete: %@", s);
+    [_lists removeObjectAtIndex:index];
+    [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
     
-    [self.collectionView performBatchUpdates:^{
-      
-//      [self.collectionView deleteSections:s];
-      [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]]];
-      
-    } completion:^(BOOL finished) {
-      
+    if (_lists.count) {
+      [self groupedRemoval];
+    } else {
       [self performSegueWithIdentifier:@"AddNewList" sender:nil];
-      
-    }];
-    
-//    [self.collectionView reloadData];
-    
+    }
   }
 }
 
 - (IBAction)cancelAuthoringUnwindSegue:(UIStoryboardSegue *)segue
 {
   NSLog(@"cancel authoring unwind");
-  [self setLists];
+  [self updateLists];
   
 
 //  [self.collectionView reloadData];

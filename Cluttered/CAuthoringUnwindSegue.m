@@ -22,7 +22,7 @@
       
     } completion:^(BOOL finished) {
       [destination dismissViewControllerAnimated:NO completion:^{
-        [destination insertLists];
+        [destination groupInsert];
       }];
     }];
     

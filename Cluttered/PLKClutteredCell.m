@@ -60,10 +60,14 @@
 
 - (void)shadowize
 {
-  self.layer.shadowOffset = CGSizeMake(0, 0);
-  self.layer.shadowRadius = 5.0;
-  self.layer.shadowColor = [UIColor blackColor].CGColor;
-  self.layer.shadowOpacity = 0.5;
+//  self.layer.shadowOffset = CGSizeMake(0, 0);
+//  self.layer.shadowRadius = 5.0;
+//  self.layer.shadowColor = [UIColor blackColor].CGColor;
+//  self.layer.shadowOpacity = 0.5;
+  
+  self.layer.borderColor = [UIColor colorWithWhite:0.90 alpha:1.0].CGColor;
+  self.layer.borderWidth = 1.0;
+
   
 //  self.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
 }

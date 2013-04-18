@@ -90,6 +90,11 @@ typedef enum {
   if ([_insertedItems containsObject:itemIndexPath]) {
     UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
     attributes.center = _initialStartingPoint;
+    
+    attributes.size = CGSizeMake(181, 250);
+    
+    NSLog(@"initial attributes size: %@", NSStringFromCGSize(attributes.size));
+    
     return attributes;
   } else {
     return [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
@@ -101,12 +106,15 @@ typedef enum {
   
   UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
   
-  NSLog(@"final layout attributes for disappearing item: %@", itemIndexPath);
+//  NSLog(@"final layout attributes for disappearing item: %@", itemIndexPath);
   
   if ([_deletedItems containsObject:itemIndexPath]) {
     UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
     
     attributes.center = _finalDestination;
+    
+    attributes.size = CGSizeMake(181, 250);
+    
     NSLog(@"final layout attributes for disappearing item -- DELETE: %@", NSStringFromCGPoint(attributes.center));
     return attributes;
   } else {
@@ -132,6 +140,7 @@ typedef enum {
       [CATransaction setCompletionBlock:^{
         PLKClutteredCell *cell = (PLKClutteredCell *)[self.collectionView cellForItemAtIndexPath:updateItem.indexPathAfterUpdate];
         NSLog(@"animation finished. %@", cell);
+        NSLog(@"CELL.SIZE: %@", NSStringFromCGSize(cell.bounds.size));
         [cell shadowize];
       }];
     }

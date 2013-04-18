@@ -34,7 +34,7 @@
   transitionImageView.layer.transform = la.transform3D;
   transitionImageView.layer.shouldRasterize = YES;
   
-  [self shadowize:transitionImageView];
+//  [self shadowize:transitionImageView];
   
   [sourceViewController.collectionView addSubview:transitionImageView];
   

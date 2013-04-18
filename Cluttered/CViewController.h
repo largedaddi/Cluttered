@@ -11,7 +11,7 @@
 @interface CViewController : UICollectionViewController
 
 - (void)loadLists;
-- (void)insertLists;
+- (void)groupInsert;
 
 // Unwind Segues
 - (IBAction)cancelAuthoringUnwindSegue:(UIStoryboardSegue *)segue;
