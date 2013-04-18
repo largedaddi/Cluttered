@@ -31,6 +31,12 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  self.listTitle.text = self.list.name;
+  
+  NSDateFormatter *df = [[NSDateFormatter alloc] init];
+  df.dateFormat = @"MM/dd/yyyy";
+  self.date.text = [df stringFromDate:self.list.date];
+  
   _listItems = [self.list.listItems allObjects];
   
   UISwipeGestureRecognizer *twoFingerUnwindGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTwoFingerUnwind:)];

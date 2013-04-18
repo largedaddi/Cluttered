@@ -224,7 +224,7 @@
 {
   if ([segue.identifier isEqualToString:@"cancelAuthoring"]) {
     CViewController *destinationViewController = (CViewController *)segue.destinationViewController;
-    [destinationViewController loadLists];
+    [destinationViewController fetchLists];
   }
 }
 

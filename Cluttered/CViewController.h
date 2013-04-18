@@ -10,7 +10,7 @@
 
 @interface CViewController : UICollectionViewController
 
-- (void)loadLists;
+- (void)fetchLists;
 - (void)groupInsert;
 
 // Unwind Segues

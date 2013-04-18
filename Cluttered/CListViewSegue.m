@@ -18,6 +18,7 @@
 {
   CViewController *sourceViewController = (CViewController *)self.sourceViewController;
   CListViewController *destinationViewController = (CListViewController *)self.destinationViewController;
+  
   NSInteger listCount = [sourceViewController.collectionView numberOfItemsInSection:0];
   int rowIndex = listCount - 1;
   NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForItem:rowIndex inSection:0];

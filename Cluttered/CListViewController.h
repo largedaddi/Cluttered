@@ -10,7 +10,10 @@
 @class List;
 
 @interface CListViewController : UITableViewController
+
 @property (nonatomic, strong) List *list;
+@property (nonatomic, weak) IBOutlet UILabel *date;
+@property (nonatomic, weak) IBOutlet UILabel *listTitle;
 
 // Unwind Segues
 - (IBAction)viewNewListUnwindSegue:(UIStoryboardSegue *)segue;

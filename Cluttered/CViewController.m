@@ -38,14 +38,13 @@
   
   self.collectionView.collectionViewLayout = [[PLKClutteredLayout alloc] init];
   
-  [self loadLists];
+  [self fetchLists];
   _swipedLists = [[NSMutableArray alloc] init];
   
   double delayInSeconds = 1.0;
   dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
   dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-    
-    [self updateLists];
+    _lists = [[NSMutableArray alloc] init];
     [self groupInsert];
   });
 }
@@ -123,7 +122,7 @@
 
 #pragma mark - Public
 
-- (void)loadLists {
+- (void)fetchLists {
   NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[List entityName]];
   fetchRequest.fetchBatchSize = 40;
   NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
@@ -145,20 +144,21 @@
 
 - (void)groupInsert
 {
-  //  Update lists
-  [self updateLists];
-  
-  //  Group insert lists
-  NSMutableArray *ma = [[NSMutableArray alloc] init];
-  for (int i = 0; i < _lists.count; i++) {
-    [ma addObject:[NSIndexPath indexPathForItem:i inSection:0]];
+  if (_lists.count) {
+    [_lists removeAllObjects];
   }
   
-  [self.collectionView performBatchUpdates:^{
-    [self.collectionView insertItemsAtIndexPaths:ma];
-  } completion:^(BOOL finished) {
-    
-  }];
+  for (int i = 0; i < _fetchedResultsController.fetchedObjects.count; i++) {
+    [self performSelector:@selector(insertListWithIndex:) withObject:@(i) afterDelay:0.25 * i];
+  }
+}
+
+- (void)insertListWithIndex:(NSNumber *)index
+{
+  NSInteger i = [index integerValue];
+  NSLog(@"INSERTING FETCHED OBJECT WITH INDEX: %d", i);
+  [_lists addObject:_fetchedResultsController.fetchedObjects[i]];
+  [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:i inSection:0]]];
 }
 
 #pragma mark - UICollectionView Data Source
@@ -238,7 +238,7 @@ itemAtIndexPathThrownOut:(NSIndexPath *)indexPath
 {
   [self dismissViewControllerAnimated:YES completion:^{
     if (newList) {
-      [self loadLists];
+      [self fetchLists];
       [self.collectionView reloadData];
     }
   }];
